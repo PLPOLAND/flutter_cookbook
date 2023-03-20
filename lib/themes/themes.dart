@@ -6,31 +6,6 @@ class ThemesMenager {
   static String theme = "green";
   static ThemeMode themeMode = ThemeMode.system;
 
-  ThemesMenager() {
-    // ThemesMenager.setTheme("green"); //setting default theme
-    // ThemesMenager.setThemeMode(ThemeMode.light); //setting default theme mode
-    // //for dynamic theme
-    // //TODO need testing
-    // DynamicColorBuilder(
-    //   builder: (lightDynamic, darkDynamic) {
-    //     print("building dynamic themes");
-    //     if (lightDynamic != null && darkDynamic != null) {
-    //       if (!colorShemes.containsKey("dynamic_light") ||
-    //           !colorShemes.containsKey("dynamic_dark")) {
-    //         // print("adding dynamic themes");
-    //         colorShemes.addAll({
-    //           'dynamic_light': lightDynamic,
-    //           'dynamic_dark': darkDynamic,
-    //         });
-    //         ThemesMenager.setTheme("dynamic");
-    //         ThemesMenager.setThemeMode(ThemeMode.system);
-    //       }
-    //     }
-    //     return Text("");
-    //   },
-    // );
-  }
-
   static addDynamic(ColorScheme? light, ColorScheme? dark) {
     if (light != null && dark != null) {
       if (!colorShemes.containsKey("dynamic_light") ||

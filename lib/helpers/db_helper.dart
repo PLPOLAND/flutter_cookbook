@@ -102,8 +102,14 @@ class DBHelper {
         where: 'id = ?', whereArgs: [ingredient.id]);
   }
 
-  /// Get all recipes from the database
-  static Future<List<Recipe>> getRecipes() async {
+  /// Get all recipes from the database. Needs a list of [tags] and [ingredients] to add the tags and ingredients to the recipe.
+  static Future<List<Recipe>> getRecipes(
+    List<Tag> tags,
+    List<Ingredient> ingredients,
+  ) async {
+    if (tags.isEmpty || ingredients.isEmpty) {
+      return [];
+    }
     final db = await DBHelper.database();
     final List<Map<String, dynamic>> maps =
         await db.query('${DBTables.recipes}');
@@ -113,8 +119,29 @@ class DBHelper {
         description: maps[i]['content'],
         title: maps[i]['name'],
       );
-      //TODO Implement ingredients and tags
 
+      String tmpTags = maps[i]
+          ['tags']; //tags are stored as a string with the ids separated by ';'
+      List<String> splitedTags = tmpTags.split(';'); // split them
+      splitedTags.forEach((element) {
+        // add the tag of given ID to the recipe
+        recipe.addTag(tags.firstWhere((tag) => tag.id == int.parse(element)));
+      });
+
+      //ingredients are stored as a string with the ids separated by ';' and the size separated by ','
+      String tmpIngredientsWithSize = maps[i]['ingredients'];
+      List<String> splitedIngredientsWithSize =
+          tmpIngredientsWithSize.split(';'); // split ingredients
+      splitedIngredientsWithSize.forEach((element) {
+        List<String> ingredientWithSize =
+            element.split(','); // split ingredient and size
+        recipe.addIngredient(
+          ingredients.firstWhere(
+            (ingredient) => ingredient.id == int.parse(ingredientWithSize[0]),
+          ),
+          ingredientWithSize[1],
+        );
+      });
       return recipe;
     });
   }

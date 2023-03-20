@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-class Ingredient with ChangeNotifier {
+class Ingredient extends Equatable with ChangeNotifier {
   int? _id;
   String _name;
 
@@ -21,4 +22,7 @@ class Ingredient with ChangeNotifier {
       'name': name,
     };
   }
+
+  @override
+  List<Object?> get props => [id];
 }

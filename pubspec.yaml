@@ -17,7 +17,7 @@ dependencies:
   shared_preferences: ^2.0.18
   flutter_speed_dial: ^6.2.0
   image_picker: ^0.8.7
-
+  equatable: ^2.0.0
 
 
 
