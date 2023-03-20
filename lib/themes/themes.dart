@@ -389,7 +389,7 @@ class ThemesMenager with ChangeNotifier {
                         ? ThemeMode.light
                         : ThemeMode.dark);
               },
-              icon: Icon(themeProvider.themeMode == ThemeMode.dark
+              icon: Icon(themeProvider.themeMode == ThemeMode.light
                   ? Icons.brightness_3
                   : Icons.sunny),
               label: themeProvider.themeMode == ThemeMode.light
