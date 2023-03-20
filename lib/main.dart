@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cookbook/providers/ingredients_provider.dart';
 import 'package:flutter_cookbook/providers/recipes_provider.dart';
 import 'package:flutter_cookbook/providers/tags_provider.dart';
-import 'package:flutter_cookbook/screens/HomePage.dart';
+import 'package:flutter_cookbook/screens/home_page.dart';
 import 'package:flutter_cookbook/screens/recipe_detail_screen.dart';
 import 'package:flutter_cookbook/themes/themes.dart';
 import 'package:provider/provider.dart';
