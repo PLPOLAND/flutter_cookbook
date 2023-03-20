@@ -1,5 +1,5 @@
 /// `Tag` is a class that represents a tag
-class Tag {
+class Tag extends Comparable<Tag> {
   int? _id;
   String _name;
 
@@ -21,5 +21,15 @@ class Tag {
       'id': id ?? -1,
       'name': name,
     };
+  }
+
+  @override
+  String toString() {
+    return 'Tag{id: $id, name: $name}';
+  }
+
+  @override
+  int compareTo(Tag other) {
+    return this.name.compareTo(other.name);
   }
 }

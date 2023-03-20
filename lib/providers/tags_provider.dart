@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cookbook/helpers/db_helper.dart';
 import '../models/tag.dart';
 
 class TagsProvider with ChangeNotifier {
@@ -6,6 +7,15 @@ class TagsProvider with ChangeNotifier {
 
   List<Tag> get tags {
     return [..._tags];
+  }
+
+  TagsProvider() {
+    fetchAndSetTags();
+  }
+
+  void fetchAndSetTags() async {
+    _tags = await DBHelper.getTags();
+    notifyListeners();
   }
 
   /// Get the next available id for a tag
@@ -26,16 +36,19 @@ class TagsProvider with ChangeNotifier {
   void addTag(Tag tag) {
     tag.id ??= _getNextId;
     _tags.add(tag);
+    DBHelper.insertTag(tag);
     notifyListeners();
   }
 
   void removeTag(Tag tag) {
     _tags.remove(tag);
+    DBHelper.deleteTag(tag);
     notifyListeners();
   }
 
   /// Remove the [tag] from the list of tags if the [tag] [id] matches the id passed in
   void removeTagById(int id) {
+    DBHelper.deleteTag(tags.where((element) => element.id == id).first);
     _tags.removeWhere((tag) => tag.id == id);
     notifyListeners();
   }
@@ -44,6 +57,7 @@ class TagsProvider with ChangeNotifier {
   void updateTag(Tag tag) {
     final index = _tags.indexWhere((element) => element.id == tag.id);
     _tags[index] = tag;
+    DBHelper.updateTag(tag);
     notifyListeners();
   }
 
@@ -51,12 +65,10 @@ class TagsProvider with ChangeNotifier {
     return _tags.firstWhere((tag) => tag.id == id);
   }
 
-  void setTags(List<Tag> tags) {
-    _tags = tags;
-    notifyListeners();
-  }
-
   void clearTags() {
+    for (var tag in _tags) {
+      DBHelper.deleteTag(tag);
+    }
     _tags = [];
     notifyListeners();
   }

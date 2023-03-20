@@ -9,7 +9,12 @@ import '../models/recipe.dart';
 enum DBTables {
   recipes,
   ingredients,
-  tags,
+  tags;
+
+  @override
+  String toString() {
+    return super.toString().split('.').last;
+  }
 }
 
 class DBHelper {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cookbook/screens/tags_list_screen.dart';
 
 class MainDrawer extends StatelessWidget {
   Widget buildListTile(String title, IconData icon, Function tapHandler) {
@@ -32,6 +33,12 @@ class MainDrawer extends StatelessWidget {
             leading: const Icon(Icons.home),
             title: const Text('Homepage'),
             onTap: () => Navigator.of(context).pushReplacementNamed('/'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.tag),
+            title: const Text('Tags'),
+            onTap: () => Navigator.of(context)
+                .pushReplacementNamed(TagsListScreen.routeName),
           ),
           ListTile(
             leading: const Icon(Icons.settings),

@@ -1,9 +1,11 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemesMenager with ChangeNotifier {
-  String _theme = "green";
+  String _theme = "pink";
   ThemeMode _themeMode = ThemeMode.system;
 
   // static final ThemesMenager _instance = ThemesMenager.internal();
@@ -12,6 +14,26 @@ class ThemesMenager with ChangeNotifier {
   // factory ThemesMenager() {
   //   return _instance;
   // }
+
+  ThemesMenager() {
+    loadFromMemory();
+  }
+
+  void loadFromMemory() async {
+    var prefs = await SharedPreferences.getInstance();
+    var theme = prefs.getString("theme");
+    var themeMode = prefs.getString("themeMode");
+    if (theme != null) {
+      setTheme(theme);
+    }
+    if (themeMode != null) {
+      setThemeMode(themeMode == "system"
+          ? ThemeMode.system
+          : themeMode == "light"
+              ? ThemeMode.light
+              : ThemeMode.dark);
+    }
+  }
 
   void addDynamic(ColorScheme? light, ColorScheme? dark) {
     if (light != null && dark != null) {
@@ -30,31 +52,34 @@ class ThemesMenager with ChangeNotifier {
     }
   }
 
-  void setTheme(String theme) {
-    // if (theme == "dynamic") {
-    //   if (themeMode == ThemeMode.light) {
-    //     ThemesMenager.theme = "dynamic_light";
-    //     print("setting theme to dynamic light");
-    //   } else if (themeMode == ThemeMode.dark) {
-    //     ThemesMenager.theme = "dynamic_dark";
-    //     print("setting theme to dynamic dark");
-    //   }
-    // }
+  void setTheme(String theme) async {
+    print("trying to set the theme to $theme");
     if (ThemesMenager.colorShemes.containsKey("${theme}_light")) {
       _theme = theme;
 
       print("setting theme to $theme");
       notifyListeners();
+      var prefs = await SharedPreferences.getInstance();
+      prefs.setString("theme", theme);
     }
   }
 
-  void setThemeMode(ThemeMode themeMode) {
+  void setThemeMode(ThemeMode themeMode) async {
     // print("setting theme mode to $themeMode");
     _themeMode = themeMode;
     notifyListeners();
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setString(
+        "themeMode",
+        themeMode == ThemeMode.system
+            ? "system"
+            : themeMode == ThemeMode.light
+                ? "light"
+                : "dark");
   }
 
   ThemeMode get themeMode => _themeMode;
+  String get theme => _theme;
 
   static Map<String, ColorScheme> colorShemes = {
     'pink_light': const ColorScheme(
@@ -296,5 +321,82 @@ class ThemesMenager with ChangeNotifier {
         return colorShemes["pink_light"];
       }
     }
+  }
+
+  static Widget getSettingsRow(BuildContext context) {
+    final themeProviderListen = Provider.of<ThemesMenager>(context);
+    final themeProvider = Provider.of<ThemesMenager>(context, listen: false);
+
+    final dropdownState = GlobalKey<FormFieldState>();
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Expanded(
+          flex: 1,
+          child: DropdownButtonFormField(
+            key: dropdownState,
+            decoration: const InputDecoration(
+              labelText: "Theme Color:",
+              border: OutlineInputBorder(),
+            ),
+            items: const [
+              DropdownMenuItem(
+                value: "pink",
+                child: Text('Pink'),
+              ),
+              DropdownMenuItem(
+                value: "blue",
+                child: Text('Blue'),
+              ),
+              DropdownMenuItem(
+                value: "green",
+                child: Text('Green'),
+              ),
+              DropdownMenuItem(
+                value: "dynamic",
+                child: Text('Dynamic'),
+              ),
+            ],
+            value: themeProviderListen.theme,
+            elevation: 1,
+            onChanged: (value) {
+              if (value == 'dynamic') {
+                themeProvider.setTheme(value.toString());
+                if (themeProvider.theme != 'dynamic') {
+                  dropdownState.currentState!.didChange(themeProvider.theme);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                          "Theme color can't be changed to dynamic, because system doesn't support it."),
+                      showCloseIcon: true,
+                    ),
+                  );
+                }
+              } else {
+                themeProvider.setTheme(value.toString());
+              }
+            },
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          flex: 1,
+          child: ElevatedButton.icon(
+              onPressed: () {
+                themeProvider.setThemeMode(
+                    themeProvider.themeMode == ThemeMode.dark
+                        ? ThemeMode.light
+                        : ThemeMode.dark);
+              },
+              icon: Icon(themeProvider.themeMode == ThemeMode.dark
+                  ? Icons.brightness_3
+                  : Icons.sunny),
+              label: themeProvider.themeMode == ThemeMode.light
+                  ? const Text("Dark Mode")
+                  : const Text("Light Mode")),
+        ),
+      ],
+    );
   }
 }

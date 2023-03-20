@@ -21,15 +21,12 @@ class HomePageScreen extends StatelessWidget {
       drawer: MainDrawer(),
       floatingActionButton: Consumer<ThemesMenager>(
         builder: (context, value, child) {
-          return FloatingActionButton(
+          return FloatingActionButton.extended(
             onPressed: () {
-              if (value.themeMode == ThemeMode.dark) {
-                value.setThemeMode(ThemeMode.light);
-              } else {
-                value.setThemeMode(ThemeMode.dark);
-              }
+              Navigator.of(context).pushNamed('/add-recipe');
             },
-            child: const Icon(Icons.brightness_6),
+            label: const Text('Add Recipe'),
+            icon: const Icon(Icons.add),
           );
         },
       ),
