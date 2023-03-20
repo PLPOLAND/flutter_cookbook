@@ -17,33 +17,39 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DynamicColorBuilder(
-      builder: (lightDynamic, darkDynamic) {
-        ThemesMenager.addDynamic(lightDynamic, darkDynamic);
-        return MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (_) => TagsProvider()),
-            ChangeNotifierProvider(create: (_) => IngredientsProvider()),
-            ChangeNotifierProxyProvider2<TagsProvider, IngredientsProvider,
-                RecipesProvider>(
-              create: (_) => RecipesProvider([], []),
-              update: (context, tags, ingredients, previous) =>
-                  RecipesProvider(tags.tags, ingredients.ingredients),
-            ),
-          ],
-          child: MaterialApp(
-            title: 'Cookbook',
-            theme: ThemeData(
-              colorScheme:
-                  ThemesMenager.getColorScheme(systemAutoBrightness: true),
-              useMaterial3: true,
-            ),
-            home: RecipeDetailScreen(),
-            routes: {
-              // HomePageScreen.routeName: (context) => const HomePageScreen(),
-              RecipeDetailScreen.routeName: (context) => RecipeDetailScreen(),
-            },
-          ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemesMenager()),
+        ChangeNotifierProvider(create: (_) => TagsProvider()),
+        ChangeNotifierProvider(create: (_) => IngredientsProvider()),
+        ChangeNotifierProxyProvider2<TagsProvider, IngredientsProvider,
+            RecipesProvider>(
+          create: (_) => RecipesProvider([], []),
+          update: (context, tags, ingredients, previous) =>
+              RecipesProvider(tags.tags, ingredients.ingredients),
+        ),
+      ],
+      builder: (context, child) {
+        print("build: MainApp");
+        return DynamicColorBuilder(
+          builder: (lightDynamic, darkDynamic) {
+            Provider.of<ThemesMenager>(context, listen: false)
+                .addDynamic(lightDynamic, darkDynamic);
+            return MaterialApp(
+              title: 'Cookbook',
+              theme: ThemeData(
+                colorScheme:
+                    Provider.of<ThemesMenager>(context).getColorScheme(),
+                // ThemesMenager.getColorScheme(systemAutoBrightness: true),
+                useMaterial3: true,
+              ),
+              // home: RecipeDetailScreen(),
+              routes: {
+                HomePageScreen.routeName: (context) => const HomePageScreen(),
+                RecipeDetailScreen.routeName: (context) => RecipeDetailScreen(),
+              },
+            );
+          },
         );
       },
     );

@@ -2,11 +2,18 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-class ThemesMenager {
-  static String theme = "green";
-  static ThemeMode themeMode = ThemeMode.system;
+class ThemesMenager with ChangeNotifier {
+  String _theme = "green";
+  ThemeMode _themeMode = ThemeMode.system;
 
-  static addDynamic(ColorScheme? light, ColorScheme? dark) {
+  // static final ThemesMenager _instance = ThemesMenager.internal();
+  // ThemesMenager.internal();
+
+  // factory ThemesMenager() {
+  //   return _instance;
+  // }
+
+  void addDynamic(ColorScheme? light, ColorScheme? dark) {
     if (light != null && dark != null) {
       if (!colorShemes.containsKey("dynamic_light") ||
           !colorShemes.containsKey("dynamic_dark")) {
@@ -15,15 +22,15 @@ class ThemesMenager {
           'dynamic_light': light,
           'dynamic_dark': dark,
         });
-        ThemesMenager.setTheme("dynamic");
-        ThemesMenager.setThemeMode(ThemeMode.system);
+        setTheme("dynamic");
+        setThemeMode(ThemeMode.system);
       }
     } else {
       print("dynamic themes are null");
     }
   }
 
-  static void setTheme(String theme) {
+  void setTheme(String theme) {
     // if (theme == "dynamic") {
     //   if (themeMode == ThemeMode.light) {
     //     ThemesMenager.theme = "dynamic_light";
@@ -34,15 +41,20 @@ class ThemesMenager {
     //   }
     // }
     if (ThemesMenager.colorShemes.containsKey("${theme}_light")) {
-      ThemesMenager.theme = theme;
+      _theme = theme;
+
       print("setting theme to $theme");
+      notifyListeners();
     }
   }
 
-  static void setThemeMode(ThemeMode themeMode) {
+  void setThemeMode(ThemeMode themeMode) {
     // print("setting theme mode to $themeMode");
-    ThemesMenager.themeMode = themeMode;
+    _themeMode = themeMode;
+    notifyListeners();
   }
+
+  ThemeMode get themeMode => _themeMode;
 
   static Map<String, ColorScheme> colorShemes = {
     'pink_light': const ColorScheme(
@@ -245,17 +257,17 @@ class ThemesMenager {
     ),
   };
 
-  static ColorScheme? getColorScheme({bool systemAutoBrightness = false}) {
-    if (systemAutoBrightness == false || themeMode != ThemeMode.system) {
-      if (themeMode == ThemeMode.light) {
-        if (colorShemes.containsKey("${theme}_light")) {
-          return colorShemes["${theme}_light"];
+  ColorScheme? getColorScheme({bool systemAutoBrightness = false}) {
+    if (systemAutoBrightness == false || _themeMode != ThemeMode.system) {
+      if (_themeMode == ThemeMode.light) {
+        if (colorShemes.containsKey("${_theme}_light")) {
+          return colorShemes["${_theme}_light"];
         } else {
           return colorShemes["pink_light"];
         }
-      } else if (themeMode == ThemeMode.dark) {
-        if (colorShemes.containsKey("${theme}_dark")) {
-          return colorShemes["${theme}_dark"];
+      } else if (_themeMode == ThemeMode.dark) {
+        if (colorShemes.containsKey("${_theme}_dark")) {
+          return colorShemes["${_theme}_dark"];
         } else {
           return colorShemes["pink_dark"];
         }
@@ -267,16 +279,16 @@ class ThemesMenager {
           "themeMode: ${SchedulerBinding.instance.platformDispatcher.platformBrightness}");
       if (SchedulerBinding.instance.platformDispatcher.platformBrightness ==
           Brightness.dark) {
-        if (colorShemes.containsKey("${theme}_dark")) {
-          return colorShemes["${theme}_dark"];
+        if (colorShemes.containsKey("${_theme}_dark")) {
+          return colorShemes["${_theme}_dark"];
         } else {
           return colorShemes["pink_dark"];
         }
       } else if (SchedulerBinding
               .instance.platformDispatcher.platformBrightness ==
           Brightness.light) {
-        if (colorShemes.containsKey("${theme}_light")) {
-          return colorShemes["${theme}_light"];
+        if (colorShemes.containsKey("${_theme}_light")) {
+          return colorShemes["${_theme}_light"];
         } else {
           return colorShemes["pink_light"];
         }
