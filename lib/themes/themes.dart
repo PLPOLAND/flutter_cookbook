@@ -369,6 +369,7 @@ class ThemesMenager with ChangeNotifier {
       print(
           "themeMode: ${SchedulerBinding.instance.platformDispatcher.platformBrightness}");
       if (SchedulerBinding.instance.platformDispatcher.platformBrightness ==
+          // if (SchedulerBinding.instance.platformDispatcher.platformBrightness ==
           Brightness.dark) {
         if (colorShemes.containsKey("${_theme}_dark")) {
           return colorShemes["${_theme}_dark"];
@@ -392,14 +393,14 @@ class ThemesMenager with ChangeNotifier {
   static Widget getSettingsRow(BuildContext context) {
     final themeProviderListen = Provider.of<ThemesMenager>(context);
     final themeProvider = Provider.of<ThemesMenager>(context, listen: false);
+    bool isAutoBrightness = themeProviderListen.themeMode == ThemeMode.system;
 
     final dropdownState = GlobalKey<FormFieldState>();
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.max,
       children: [
         Expanded(
-          flex: 1,
           child: DropdownButtonFormField(
             key: dropdownState,
             decoration: const InputDecoration(
@@ -449,22 +450,42 @@ class ThemesMenager with ChangeNotifier {
             },
           ),
         ),
-        const SizedBox(width: 10),
-        Expanded(
-          flex: 1,
+        Padding(
+          padding: const EdgeInsets.only(left: 10),
           child: ElevatedButton.icon(
-              onPressed: () {
-                themeProvider.setThemeMode(
-                    themeProvider.themeMode == ThemeMode.dark
-                        ? ThemeMode.light
-                        : ThemeMode.dark);
-              },
-              icon: Icon(themeProvider.themeMode == ThemeMode.light
+            onPressed: () {
+              switch (themeProvider.themeMode) {
+                case ThemeMode.dark:
+                  themeProvider.setThemeMode(ThemeMode.light);
+                  break;
+                case ThemeMode.light:
+                  themeProvider.setThemeMode(ThemeMode.system);
+                  break;
+                case ThemeMode.system:
+                  themeProvider.setThemeMode(ThemeMode.dark);
+                  break;
+                default:
+              }
+              // themeProvider
+              //     .setThemeMode(themeProvider.themeMode == ThemeMode.dark
+              //         ? themeProvider.themeMode == ThemeMode.light
+              //             ? ThemeMode.system
+              //             : ThemeMode.light
+              //         : ThemeMode.dark);
+            },
+            icon: Icon(
+              themeProvider.themeMode == ThemeMode.light
                   ? Icons.brightness_3
-                  : Icons.sunny),
-              label: themeProvider.themeMode == ThemeMode.light
-                  ? const Text("Dark Mode")
-                  : const Text("Light Mode")),
+                  : themeProvider.themeMode == ThemeMode.system
+                      ? Icons.brightness_auto
+                      : Icons.sunny,
+            ),
+            label: themeProvider.themeMode == ThemeMode.light
+                ? const Text("Dark Mode")
+                : themeProvider.themeMode == ThemeMode.system
+                    ? const Text("Auto Mode")
+                    : const Text("Light Mode"),
+          ),
         ),
       ],
     );
