@@ -24,7 +24,14 @@ class _IngredientsChooserState extends State<IngredientsChooser> {
     print('ingredient: $ingredient');
     if (ingredient != null) {
       setState(() {
-        widget.ingredients.putIfAbsent(ingredient, () => 0);
+        if (widget.ingredients.containsKey(ingredient)) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Ingredient already added'),
+            showCloseIcon: true,
+          ));
+        } else {
+          widget.ingredients.putIfAbsent(ingredient, () => 0);
+        }
       });
     }
   }

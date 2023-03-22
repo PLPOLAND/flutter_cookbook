@@ -81,7 +81,7 @@ class ThemesMenager with ChangeNotifier {
   ThemeMode get themeMode => _themeMode;
   String get theme => _theme;
 
-  static Map<String, ColorScheme> colorShemes = const {
+  static Map<String, ColorScheme> colorShemes = {
     'pink_light': ColorScheme(
       brightness: Brightness.light,
       primary: Color(0xFFB90063),
