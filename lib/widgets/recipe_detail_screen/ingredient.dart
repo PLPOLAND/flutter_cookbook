@@ -3,7 +3,7 @@ import 'package:flutter_cookbook/models/ingredient.dart';
 
 class IngredientWidget extends StatelessWidget {
   final Ingredient ingredient;
-  final String amount;
+  final double amount;
   const IngredientWidget(
       {super.key, required this.ingredient, required this.amount});
 
@@ -18,7 +18,7 @@ class IngredientWidget extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            Text(amount),
+            Text(amount.toStringAsFixed(1)),
           ],
         ),
         const Divider(),

@@ -5,7 +5,6 @@ class Tag extends Comparable<Tag> {
 
   /// The [id] of the tag
   int? get id => this._id;
-  set id(int? value) => this._id = value;
 
   /// The [name] of the tag
   String get name => this._name;

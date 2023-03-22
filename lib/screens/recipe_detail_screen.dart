@@ -20,10 +20,18 @@ class RecipeDetailScreen extends StatelessWidget {
         imgPath:
             "https://s3.przepisy.pl/przepisy3ii/img/variants/800x0/zapiekanka-makaronowa-pychotka.jpg");
     selectedRecipe.ingredients = {
-      Ingredient.id(id: 0, name: "Mąka"): "200 g",
-      Ingredient.id(id: 1, name: "Jajka"): "20 szt.",
-      Ingredient.id(id: 2, name: "Mleko"): "200 ml",
-      Ingredient.id(id: 3, name: "Olej"): "200 ml",
+      Ingredient.id(
+          id: 0, name: "Mąka", weightType: IngredientWeightType.grams): 1000.0,
+      Ingredient.id(
+          id: 1, name: "Jajka", weightType: IngredientWeightType.pieces): 2.0,
+      Ingredient.id(
+          id: 2,
+          name: "Mleko",
+          weightType: IngredientWeightType.mililiters): 500.0,
+      Ingredient.id(
+          id: 3,
+          name: "Olej",
+          weightType: IngredientWeightType.mililiters): 200.0,
     };
     selectedRecipe.tags = [
       Tag.id(id: 0, name: "Śniadanie"),

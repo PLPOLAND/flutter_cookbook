@@ -2,6 +2,8 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cookbook/widgets/tags_chooser.dart';
 
+import '../widgets/ingredeints_chooser.dart';
+
 class AddRecipeScreen extends StatefulWidget {
   static const routeName = '/add-recipe';
 
@@ -69,7 +71,9 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                     },
                   ),
                   const SizedBox(height: 10),
-                  TagsChooser(),
+                  IngredientsChooser(),
+                  const SizedBox(height: 20),
+                  const TagsChooser(),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

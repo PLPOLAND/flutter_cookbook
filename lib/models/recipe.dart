@@ -8,7 +8,7 @@ class Recipe with ChangeNotifier {
   int? _id;
   String _title;
   String _recipeDescription;
-  Map<Ingredient, String> _ingredients = {};
+  Map<Ingredient, double> _ingredients = {};
   List<Tag> _tags = [];
   File? _image;
 
@@ -54,8 +54,8 @@ class Recipe with ChangeNotifier {
     notifyListeners();
   }
 
-  Map<Ingredient, String> get ingredients => _ingredients;
-  set ingredients(Map<Ingredient, String> value) {
+  Map<Ingredient, double> get ingredients => _ingredients;
+  set ingredients(Map<Ingredient, double> value) {
     _ingredients = value;
     notifyListeners();
   }
@@ -90,7 +90,7 @@ class Recipe with ChangeNotifier {
     };
   }
 
-  void addIngredient(Ingredient ingredient, String size) {
+  void addIngredient(Ingredient ingredient, double size) {
     _ingredients.putIfAbsent(ingredient, () => size);
     notifyListeners();
   }

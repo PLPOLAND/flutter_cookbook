@@ -22,11 +22,22 @@ class IngredientsProvider with ChangeNotifier {
     return nextId;
   }
 
-  void addIngredient(Ingredient ingredient) {
-    ingredient.id ??= _getNextId;
-    _ingredients.add(ingredient);
-    DBHelper.insertIngredient(ingredient);
-    notifyListeners();
+  Future<Ingredient> addIngredient(Ingredient ingredient) async {
+    if (ingredient.id == null) {
+      Ingredient newIngredient = Ingredient.id(
+          id: _getNextId,
+          name: ingredient.name,
+          weightType: ingredient.weightType);
+      _ingredients.add(newIngredient);
+      await DBHelper.insertIngredient(newIngredient);
+      notifyListeners();
+      return ingredient;
+    } else {
+      _ingredients.add(ingredient);
+      await DBHelper.insertIngredient(ingredient);
+      notifyListeners();
+      return ingredient;
+    }
   }
 
   void removeIngredient(Ingredient ingredient) {

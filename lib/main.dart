@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cookbook/providers/ingredients_provider.dart';
 import 'package:flutter_cookbook/providers/recipes_provider.dart';
 import 'package:flutter_cookbook/providers/tags_provider.dart';
+import 'package:flutter_cookbook/screens/add_ingredient_screen.dart';
 import 'package:flutter_cookbook/screens/add_recipe_screen.dart';
+import 'package:flutter_cookbook/screens/add_tag_screen.dart';
 import 'package:flutter_cookbook/screens/home_page.dart';
 import 'package:flutter_cookbook/screens/recipe_detail_screen.dart';
 import 'package:flutter_cookbook/screens/settings_screen.dart';
@@ -33,8 +35,8 @@ class MainApp extends StatelessWidget {
         ),
       ],
       builder: (context, child) {
-        print(
-            "build: MainApp with theme: ${Provider.of<ThemesMenager>(context).theme}");
+        // print(
+        //     "build: MainApp with theme: ${Provider.of<ThemesMenager>(context).theme}");
         return DynamicColorBuilder(
           builder: (lightDynamic, darkDynamic) {
             Provider.of<ThemesMenager>(context, listen: false)
@@ -52,6 +54,9 @@ class MainApp extends StatelessWidget {
                 HomePageScreen.routeName: (context) => const HomePageScreen(),
                 RecipeDetailScreen.routeName: (context) => RecipeDetailScreen(),
                 AddRecipeScreen.routeName: (context) => AddRecipeScreen(),
+                AddTagScreen.routeName: (context) => AddTagScreen(),
+                AddIngredientScreen.routeName: (context) =>
+                    AddIngredientScreen(),
                 TagsListScreen.routeName: (context) => const TagsListScreen(),
                 SettingsScreen.routeName: (context) => SettingsScreen(),
               },

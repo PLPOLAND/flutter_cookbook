@@ -23,14 +23,31 @@ class DBHelper {
     return sql.openDatabase(
       path.join(dbPath, 'cookBook.db'),
       onCreate: (db, version) async {
+        print('Database created');
         await db.execute(
             'CREATE TABLE ${DBTables.recipes} (id INTEGER PRIMARY KEY, name TEXT, content TEXT, ingredients TEXT, ingredients_size TEXT, tags TEXT)');
         await db.execute(
-            'CREATE TABLE ${DBTables.ingredients} (id INTEGER PRIMARY KEY, name TEXT)');
+            'CREATE TABLE ${DBTables.ingredients} (id INTEGER PRIMARY KEY, name TEXT, weightType INTEGER)');
         await db.execute(
             'CREATE TABLE ${DBTables.tags} (id INTEGER PRIMARY KEY, name TEXT)');
       },
-      version: 1,
+      onUpgrade: (db, oldVersion, newVersion) async {
+        print('Database upgraded from version $oldVersion to $newVersion');
+        if (oldVersion < 3) {
+          await db.execute(
+              'ALTER ${DBTables.ingredients} ADD COLUMN weightType INTEGER');
+        }
+      },
+      onConfigure: (db) {
+        print('Database configured');
+      },
+      onDowngrade: (db, oldVersion, newVersion) =>
+          print('Database downgraded from version $oldVersion to $newVersion'),
+      onOpen: (db) async {
+        print('Database opened');
+        print('Database version: ${await db.getVersion()}');
+      },
+      version: 2,
     );
   }
 
@@ -79,6 +96,7 @@ class DBHelper {
       return Ingredient.id(
         id: maps[i]['id'],
         name: maps[i]['name'],
+        weightType: IngredientWeightType.values[maps[i]['weightType']],
       );
     });
   }
@@ -144,7 +162,7 @@ class DBHelper {
           ingredients.firstWhere(
             (ingredient) => ingredient.id == int.parse(ingredientWithSize[0]),
           ),
-          ingredientWithSize[1],
+          double.parse(ingredientWithSize[1]),
         );
       });
       return recipe;
@@ -173,5 +191,11 @@ class DBHelper {
     final db = await DBHelper.database();
     return db
         .delete('${DBTables.recipes}', where: 'id = ?', whereArgs: [recipe.id]);
+  }
+
+  static Future<void> deleteDatabase() async {
+    final dbPath = await sql.getDatabasesPath();
+    sql.deleteDatabase(path.join(dbPath, 'cookBook.db'));
+    print('Database deleted');
   }
 }

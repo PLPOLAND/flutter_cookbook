@@ -33,11 +33,22 @@ class TagsProvider with ChangeNotifier {
 
   /// Add a [tag] to the list of tags
   /// If the [tag] [id] is null, then set the [tag] [id] to the next available id
-  void addTag(Tag tag) {
-    tag.id ??= _getNextId;
-    _tags.add(tag);
-    DBHelper.insertTag(tag);
-    notifyListeners();
+  Future<Tag> addTag(Tag tag) async {
+    if (tag.id == null) {
+      var newTag = Tag.id(
+        id: _getNextId,
+        name: tag.name,
+      );
+      _tags.add(newTag);
+      DBHelper.insertTag(newTag);
+      notifyListeners();
+      return newTag;
+    } else {
+      _tags.add(tag);
+      DBHelper.insertTag(tag);
+      notifyListeners();
+      return tag;
+    }
   }
 
   void removeTag(Tag tag) {
