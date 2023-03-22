@@ -450,41 +450,44 @@ class ThemesMenager with ChangeNotifier {
             },
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: ElevatedButton.icon(
-            onPressed: () {
-              switch (themeProvider.themeMode) {
-                case ThemeMode.dark:
-                  themeProvider.setThemeMode(ThemeMode.light);
-                  break;
-                case ThemeMode.light:
-                  themeProvider.setThemeMode(ThemeMode.system);
-                  break;
-                case ThemeMode.system:
-                  themeProvider.setThemeMode(ThemeMode.dark);
-                  break;
-                default:
-              }
-              // themeProvider
-              //     .setThemeMode(themeProvider.themeMode == ThemeMode.dark
-              //         ? themeProvider.themeMode == ThemeMode.light
-              //             ? ThemeMode.system
-              //             : ThemeMode.light
-              //         : ThemeMode.dark);
-            },
-            icon: Icon(
-              themeProvider.themeMode == ThemeMode.light
-                  ? Icons.brightness_3
+        Expanded(
+          flex: 1,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: ElevatedButton.icon(
+              onPressed: () {
+                switch (themeProvider.themeMode) {
+                  case ThemeMode.dark:
+                    themeProvider.setThemeMode(ThemeMode.light);
+                    break;
+                  case ThemeMode.light:
+                    themeProvider.setThemeMode(ThemeMode.system);
+                    break;
+                  case ThemeMode.system:
+                    themeProvider.setThemeMode(ThemeMode.dark);
+                    break;
+                  default:
+                }
+                // themeProvider
+                //     .setThemeMode(themeProvider.themeMode == ThemeMode.dark
+                //         ? themeProvider.themeMode == ThemeMode.light
+                //             ? ThemeMode.system
+                //             : ThemeMode.light
+                //         : ThemeMode.dark);
+              },
+              icon: Icon(
+                themeProvider.themeMode == ThemeMode.light
+                    ? Icons.brightness_3
+                    : themeProvider.themeMode == ThemeMode.system
+                        ? Icons.brightness_auto
+                        : Icons.sunny,
+              ),
+              label: themeProvider.themeMode == ThemeMode.light
+                  ? const Text("Dark Mode")
                   : themeProvider.themeMode == ThemeMode.system
-                      ? Icons.brightness_auto
-                      : Icons.sunny,
+                      ? const Text("Auto Mode")
+                      : const Text("Light Mode"),
             ),
-            label: themeProvider.themeMode == ThemeMode.light
-                ? const Text("Dark Mode")
-                : themeProvider.themeMode == ThemeMode.system
-                    ? const Text("Auto Mode")
-                    : const Text("Light Mode"),
           ),
         ),
       ],
