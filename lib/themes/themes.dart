@@ -390,6 +390,7 @@ class ThemesMenager with ChangeNotifier {
     }
   }
 
+  ///Gets Theme Settings Row for App Settings
   static Widget getSettingsRow(BuildContext context) {
     final themeProviderListen = Provider.of<ThemesMenager>(context);
     final themeProvider = Provider.of<ThemesMenager>(context, listen: false);
@@ -409,6 +410,7 @@ class ThemesMenager with ChangeNotifier {
             ),
             items: const [
               DropdownMenuItem(
+                //here add more themes options
                 value: "pink",
                 child: Text('Pink'),
               ),
