@@ -16,7 +16,12 @@ class TagsList extends StatelessWidget {
         : Wrap(
             spacing: 8.0,
             // runSpacing: 4.0,
-            children: tagsProv.tags.map((tag) => TagWidget(tag)).toList(),
+            children: tagsProv.tags
+                .map((tag) => TagWidget(
+                      tag,
+                      dismissible: true,
+                    ))
+                .toList(),
           );
   }
 }

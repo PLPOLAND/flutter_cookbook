@@ -28,7 +28,17 @@ class Tag extends Comparable<Tag> {
   }
 
   @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Tag && other.name == name;
+  }
+
+  @override
   int compareTo(Tag other) {
     return this.name.compareTo(other.name);
   }
+
+  @override
+  int get hashCode => super.hashCode;
 }

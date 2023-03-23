@@ -43,10 +43,31 @@ class _AddTagScreenState extends State<AddTagScreen> {
                 ),
                 FilledButton.icon(
                   icon: const Icon(Icons.add),
-                  onPressed: () {
-                    var tag = Provider.of<TagsProvider>(context, listen: false)
-                        .addTag(Tag(controller.text.toLowerCase()));
-                    Navigator.of(context).pop(tag);
+                  onPressed: () async {
+                    try {
+                      if (controller.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Tag name cannot be empty'),
+                            showCloseIcon: true,
+                          ),
+                        );
+                      } else {
+                        var tag = await Provider.of<TagsProvider>(context,
+                                listen: false)
+                            .addTag(Tag(controller.text.toLowerCase()));
+                        if (context.mounted) {
+                          Navigator.of(context).pop(tag);
+                        }
+                      }
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text((e as Exception).toString()),
+                          showCloseIcon: true,
+                        ),
+                      );
+                    }
                   },
                   label: const Text('Add new Tag'),
                 ),

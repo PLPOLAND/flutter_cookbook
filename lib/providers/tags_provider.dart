@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cookbook/dart/exceptions/info_exception.dart';
 import 'package:flutter_cookbook/helpers/db_helper.dart';
 import '../models/tag.dart';
 
@@ -34,20 +35,24 @@ class TagsProvider with ChangeNotifier {
   /// Add a [tag] to the list of tags
   /// If the [tag] [id] is null, then set the [tag] [id] to the next available id
   Future<Tag> addTag(Tag tag) async {
-    if (tag.id == null) {
-      var newTag = Tag.id(
-        id: _getNextId,
-        name: tag.name,
-      );
-      _tags.add(newTag);
-      DBHelper.insertTag(newTag);
-      notifyListeners();
-      return newTag;
+    if (!tags.contains(tag)) {
+      if (tag.id == null) {
+        var newTag = Tag.id(
+          id: _getNextId,
+          name: tag.name,
+        );
+        _tags.add(newTag);
+        DBHelper.insertTag(newTag);
+        notifyListeners();
+        return newTag;
+      } else {
+        _tags.add(tag);
+        DBHelper.insertTag(tag);
+        notifyListeners();
+        return tag;
+      }
     } else {
-      _tags.add(tag);
-      DBHelper.insertTag(tag);
-      notifyListeners();
-      return tag;
+      throw InfoException('Tag already exists');
     }
   }
 
