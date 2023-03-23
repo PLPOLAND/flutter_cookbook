@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cookbook/providers/recipes_provider.dart';
+import 'package:flutter_cookbook/screens/recipe_detail_screen.dart';
 import 'package:flutter_cookbook/widgets/main_drawer.dart';
 import 'package:provider/provider.dart';
 
@@ -25,11 +26,36 @@ class HomePageScreen extends StatelessWidget {
         icon: const Icon(Icons.add),
       ),
       body: Consumer<RecipesProvider>(
-        builder: (context, value, child) {
-          return Center(
-            child: Text(
-              'Recipes: ${value.recipes.length}',
-            ),
+        builder: (context, recipesProvider, child) {
+          var recipes = recipesProvider.recipes;
+          return ListView.builder(
+            itemCount: recipes.length,
+            itemBuilder: (context, index) {
+              String tags = "Tags: ";
+              for (var tag in recipes[index].tags) {
+                tags += "${tag.name}, ";
+              }
+              tags = tags.substring(0, tags.length - 2);
+              return ListTile(
+                title: Text(recipes[index].title),
+                subtitle: Text(
+                  tags,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                leading: recipes[index].image == null
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.image),
+                        ],
+                      )
+                    : Image.file(recipes[index].image!),
+                onTap: () {
+                  Navigator.of(context).pushNamed(RecipeDetailScreen.routeName,
+                      arguments: recipes[index]);
+                },
+              );
+            },
           );
         },
       ),
