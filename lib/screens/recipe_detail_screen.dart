@@ -5,7 +5,7 @@ import 'package:flutter_cookbook/models/recipe.dart';
 import 'package:flutter_cookbook/models/tag.dart';
 import 'package:flutter_cookbook/widgets/recipe_detail_screen/ingredient.dart';
 import 'package:flutter_cookbook/widgets/main_drawer.dart';
-import 'package:flutter_cookbook/widgets/recipe_detail_screen/tag.dart';
+import 'package:flutter_cookbook/widgets/tag.dart';
 
 class RecipeDetailScreen extends StatelessWidget {
   static const routeName = '/recipe-detail';

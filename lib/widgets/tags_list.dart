@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cookbook/providers/tags_provider.dart';
-import 'package:flutter_cookbook/widgets/recipe_detail_screen/tag.dart';
+import 'package:flutter_cookbook/widgets/tag.dart';
 import 'package:provider/provider.dart';
 
 class TagsList extends StatelessWidget {

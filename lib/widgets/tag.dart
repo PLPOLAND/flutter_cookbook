@@ -30,6 +30,29 @@ class TagWidget extends StatelessWidget {
         color: Colors.red,
         child: const Icon(Icons.delete),
       ),
+      confirmDismiss: (direction) {
+        return showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('Are you sure?'),
+            content: const Text('Do you want to remove the tag?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop(false);
+                },
+                child: const Text('No'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop(true);
+                },
+                child: const Text('Yes'),
+              ),
+            ],
+          ),
+        );
+      },
       child: Card(
         // color: Colors.blue
         //     .harmonizeWith(Theme.of(context).colorScheme.primaryContainer),
