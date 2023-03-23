@@ -82,7 +82,7 @@ class ThemesMenager with ChangeNotifier {
   String get theme => _theme;
 
   static Map<String, ColorScheme> colorShemes = {
-    'pink_light': ColorScheme(
+    'pink_light': const ColorScheme(
       brightness: Brightness.light,
       primary: Color(0xFFB90063),
       onPrimary: Color(0xFFFFFFFF),
@@ -115,7 +115,7 @@ class ThemesMenager with ChangeNotifier {
       outlineVariant: Color(0xFFD5C2C6),
       scrim: Color(0xFF000000),
     ),
-    'pink_dark': ColorScheme(
+    'pink_dark': const ColorScheme(
       brightness: Brightness.dark,
       primary: Color(0xFFFFB1C8),
       onPrimary: Color(0xFF650033),
@@ -148,7 +148,7 @@ class ThemesMenager with ChangeNotifier {
       outlineVariant: Color(0xFF514347),
       scrim: Color(0xFF000000),
     ),
-    'blue_light': ColorScheme(
+    'blue_light': const ColorScheme(
       brightness: Brightness.light,
       primary: Color(0xFF00687A),
       onPrimary: Color(0xFFFFFFFF),
@@ -181,7 +181,7 @@ class ThemesMenager with ChangeNotifier {
       outlineVariant: Color(0xFFBFC8CB),
       scrim: Color(0xFF000000),
     ),
-    'blue_dark': ColorScheme(
+    'blue_dark': const ColorScheme(
       brightness: Brightness.dark,
       primary: Color(0xFF55D6F4),
       onPrimary: Color(0xFF003640),
@@ -214,7 +214,7 @@ class ThemesMenager with ChangeNotifier {
       outlineVariant: Color(0xFF3F484B),
       scrim: Color(0xFF000000),
     ),
-    'green_light': ColorScheme(
+    'green_light': const ColorScheme(
       brightness: Brightness.light,
       primary: Color(0xFF3A6A00),
       onPrimary: Color(0xFFFFFFFF),
@@ -247,7 +247,7 @@ class ThemesMenager with ChangeNotifier {
       outlineVariant: Color(0xFFC4C8BA),
       scrim: Color(0xFF000000),
     ),
-    'green_dark': ColorScheme(
+    'green_dark': const ColorScheme(
       brightness: Brightness.dark,
       primary: Color(0xFF99D85C),
       onPrimary: Color(0xFF1B3700),
@@ -280,7 +280,7 @@ class ThemesMenager with ChangeNotifier {
       outlineVariant: Color(0xFF44483E),
       scrim: Color(0xFF000000),
     ),
-    "yellow_light": ColorScheme(
+    "yellow_light": const ColorScheme(
       brightness: Brightness.light,
       primary: Color(0xFF865300),
       onPrimary: Color(0xFFFFFFFF),
@@ -313,7 +313,7 @@ class ThemesMenager with ChangeNotifier {
       outlineVariant: Color(0xFFD4C4B5),
       scrim: Color(0xFF000000),
     ),
-    "yellow_dark": ColorScheme(
+    "yellow_dark": const ColorScheme(
       brightness: Brightness.dark,
       primary: Color(0xFFFFB960),
       onPrimary: Color(0xFF472A00),
