@@ -10,7 +10,7 @@ import 'package:flutter_cookbook/widgets/tag.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/recipes_provider.dart';
-import 'add_recipe_screen.dart';
+import 'add_edit_recipe_screen.dart';
 
 class RecipeDetailScreen extends StatelessWidget {
   static const routeName = '/recipe-detail';
@@ -40,7 +40,7 @@ class RecipeDetailScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context)
                     .pushNamed(
-                  AddRecipeScreen.routeName,
+                  AddEditRecipeScreen.routeName,
                   arguments: selectedRecipe,
                 )
                     .then((value) {

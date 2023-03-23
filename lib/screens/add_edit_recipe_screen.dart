@@ -9,16 +9,16 @@ import '../models/tag.dart';
 import '../providers/recipes_provider.dart';
 import '../widgets/ingredeints_chooser.dart';
 
-class AddRecipeScreen extends StatefulWidget {
+class AddEditRecipeScreen extends StatefulWidget {
   static const routeName = '/add-recipe';
 
-  const AddRecipeScreen({Key? key}) : super(key: key);
+  const AddEditRecipeScreen({Key? key}) : super(key: key);
 
   @override
-  _AddRecipeScreenState createState() => _AddRecipeScreenState();
+  _AddEditRecipeScreenState createState() => _AddEditRecipeScreenState();
 }
 
-class _AddRecipeScreenState extends State<AddRecipeScreen> {
+class _AddEditRecipeScreenState extends State<AddEditRecipeScreen> {
   final _form = GlobalKey<FormState>();
   Recipe? recipe;
   String name = "";
