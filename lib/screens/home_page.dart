@@ -52,7 +52,7 @@ class HomePageScreen extends StatelessWidget {
                     : Image.file(recipes[index].image!),
                 onTap: () {
                   Navigator.of(context).pushNamed(RecipeDetailScreen.routeName,
-                      arguments: recipes[index]);
+                      arguments: recipes[index].id);
                 },
               );
             },

@@ -101,6 +101,11 @@ class Recipe with ChangeNotifier {
     };
   }
 
+  @override
+  String toString() {
+    return 'Recipe(id: $id, title: $title, description: $description, ingredients: $ingredients, tags: $tags, image: $image)';
+  }
+
   void addIngredient(Ingredient ingredient, double size) {
     _ingredients.putIfAbsent(ingredient, () => size);
     notifyListeners();

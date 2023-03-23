@@ -54,4 +54,13 @@ class RecipesProvider with ChangeNotifier {
       return recipe;
     }
   }
+
+  Future<Recipe> updateRecipe(Recipe recipe) async {
+    print("updateRecipe: ${recipe.toString()}");
+    var index = _recipes.indexWhere((element) => element.id == recipe.id);
+    _recipes[index] = recipe;
+    notifyListeners();
+    await DBHelper.updateRecipe(recipe);
+    return recipe;
+  }
 }

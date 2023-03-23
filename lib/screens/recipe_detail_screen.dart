@@ -7,14 +7,21 @@ import 'package:flutter_cookbook/widgets/recipe_detail_screen/ingredient.dart';
 import 'package:flutter_cookbook/widgets/main_drawer.dart';
 import 'package:flutter_cookbook/widgets/recipe_detail_screen/section_title.dart';
 import 'package:flutter_cookbook/widgets/tag.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/recipes_provider.dart';
+import 'add_recipe_screen.dart';
 
 class RecipeDetailScreen extends StatelessWidget {
   static const routeName = '/recipe-detail';
 
   @override
   Widget build(BuildContext context) {
-    final selectedRecipe = ModalRoute.of(context)!.settings.arguments as Recipe;
-
+    var selectedRecipeId = ModalRoute.of(context)!.settings.arguments as int;
+    var selectedRecipe = Provider.of<RecipesProvider>(context)
+        .recipes
+        .where((element) => element.id == selectedRecipeId)
+        .first;
     List<Widget> ingredientsList = [];
 
     selectedRecipe.ingredients.forEach((key, value) {
@@ -26,11 +33,25 @@ class RecipeDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('${selectedRecipe.title}'),
+        title: Text(selectedRecipe.title),
         actions: [
           IconButton(
               icon: const Icon(Icons.edit),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(
+                  AddRecipeScreen.routeName,
+                  arguments: selectedRecipe,
+                )
+                    .then((value) {
+                  // selectedRecipe =
+                  //     Provider.of<RecipesProvider>(context, listen: false)
+                  //         .recipes
+                  //         .where((element) => element.id == selectedRecipeId)
+                  //         .first;
+                  // build(context);
+                });
+              },
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all(
                   Theme.of(context).colorScheme.onSurface,
