@@ -1,7 +1,12 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cookbook/models/ingredient.dart';
+import 'package:flutter_cookbook/models/recipe.dart';
 import 'package:flutter_cookbook/widgets/tags_chooser.dart';
+import 'package:provider/provider.dart';
 
+import '../models/tag.dart';
+import '../providers/recipes_provider.dart';
 import '../widgets/ingredeints_chooser.dart';
 
 class AddRecipeScreen extends StatefulWidget {
@@ -15,10 +20,30 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   final _form = GlobalKey<FormState>();
   String name = "";
   String description = "";
-  var tags = "";
-  var ingredients = "";
+  List<Tag> tags = [];
+  Map<Ingredient, double> ingredients = {};
 
-  void save() {}
+  void save() async {
+    final isValid = _form.currentState!.validate();
+    _form.currentState!.save();
+    print(
+        "save: name: $name, description: $description, tags: $tags, ingredients: $ingredients");
+    if (isValid) {
+      var recipe = Recipe(description: description, title: name);
+      recipe.tags = tags;
+      recipe.ingredients = ingredients;
+      await Provider.of<RecipesProvider>(context, listen: false)
+          .addRecipe(recipe);
+      if (context.mounted) {
+        Navigator.of(context).pop();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Recipe added'),
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +96,9 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                     },
                   ),
                   const SizedBox(height: 10),
-                  IngredientsChooser(),
+                  IngredientsChooser(ingredients),
                   const SizedBox(height: 20),
-                  const TagsChooser(),
+                  TagsChooser(tags),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

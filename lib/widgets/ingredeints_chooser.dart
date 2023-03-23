@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 import '../models/ingredient.dart';
 
 class IngredientsChooser extends StatefulWidget {
-  final Map<Ingredient, double> ingredients = {};
-  IngredientsChooser({Key? key}) : super(key: key);
+  final Map<Ingredient, double> ingredients;
+  IngredientsChooser(this.ingredients, {Key? key}) : super(key: key);
 
   @override
   _IngredientsChooserState createState() => _IngredientsChooserState();
@@ -25,10 +25,12 @@ class _IngredientsChooserState extends State<IngredientsChooser> {
     if (ingredient != null) {
       setState(() {
         if (widget.ingredients.containsKey(ingredient)) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text('Ingredient already added'),
-            showCloseIcon: true,
-          ));
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Ingredient already added'),
+              showCloseIcon: true,
+            ),
+          );
         } else {
           widget.ingredients.putIfAbsent(ingredient, () => 0);
         }
@@ -48,7 +50,7 @@ class _IngredientsChooserState extends State<IngredientsChooser> {
               decoration: InputDecoration(
                   labelText:
                       'Amount in "${widget.ingredients.keys.elementAt(index).weightType.toShortString()}"',
-                  border: OutlineInputBorder()),
+                  border: const OutlineInputBorder()),
               autofocus: true,
               keyboardType: TextInputType.number,
               onEditingComplete: () {

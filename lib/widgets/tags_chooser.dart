@@ -10,14 +10,14 @@ import '../models/tag.dart';
 import '../models/tag_search_delegate.dart';
 
 class TagsChooser extends StatefulWidget {
-  const TagsChooser({Key? key}) : super(key: key);
+  final List<Tag> tags;
+  const TagsChooser(this.tags, {Key? key}) : super(key: key);
 
   @override
   _TagsChooserState createState() => _TagsChooserState();
 }
 
 class _TagsChooserState extends State<TagsChooser> {
-  final _tags = <Tag>[];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -98,13 +98,13 @@ class _TagsChooserState extends State<TagsChooser> {
         const SizedBox(height: 10),
         Wrap(
           spacing: 8.0,
-          children: _tags.map((tag) {
+          children: widget.tags.map((tag) {
             return ChoiceChip(
               label: Text(tag.name),
-              selected: _tags.contains(tag),
+              selected: widget.tags.contains(tag),
               onSelected: (selected) {
                 setState(() {
-                  _tags.remove(tag);
+                  widget.tags.remove(tag);
                 });
               },
             );
@@ -130,7 +130,7 @@ class _TagsChooserState extends State<TagsChooser> {
     print('tag: $tag');
     if (tag != null) {
       setState(() {
-        if (_tags.contains(tag)) {
+        if (widget.tags.contains(tag)) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               behavior: SnackBarBehavior.fixed,
@@ -140,7 +140,7 @@ class _TagsChooserState extends State<TagsChooser> {
             ),
           );
         } else {
-          _tags.add(tag);
+          widget.tags.add(tag);
         }
       });
     }

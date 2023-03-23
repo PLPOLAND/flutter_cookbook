@@ -96,7 +96,7 @@ class RecipeDetailScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                selectedRecipe.recipeDescription,
+                selectedRecipe.description,
                 textAlign: TextAlign.left,
                 style: const TextStyle(
                   fontSize: 14,

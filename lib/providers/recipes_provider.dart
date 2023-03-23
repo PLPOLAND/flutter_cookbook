@@ -35,9 +35,23 @@ class RecipesProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void addRecipe(Recipe recipe) {
-    recipe.id ??= _getNextId;
-    _recipes.add(recipe);
-    notifyListeners();
+  Future<Recipe> addRecipe(Recipe recipe) async {
+    if (recipe.id == null) {
+      var newRecipe = Recipe.id(
+          id: _getNextId,
+          title: recipe.title,
+          description: recipe.description,
+          tags: recipe.tags,
+          ingredients: recipe.ingredients);
+      _recipes.add(newRecipe);
+      notifyListeners();
+      await DBHelper.insertRecipe(newRecipe);
+      return newRecipe;
+    } else {
+      _recipes.add(recipe);
+      notifyListeners();
+      await DBHelper.insertRecipe(recipe);
+      return recipe;
+    }
   }
 }

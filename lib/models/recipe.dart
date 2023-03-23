@@ -12,21 +12,32 @@ class Recipe with ChangeNotifier {
   List<Tag> _tags = [];
   File? _image;
 
-  Recipe({required String title, required String description, String? imgPath})
+  Recipe(
+      {required String title,
+      required String description,
+      String? imgPath,
+      List<Tag>? tags,
+      Map<Ingredient, double>? ingredients})
       : _recipeDescription = description,
         _title = title {
     imgPath == null ? imgPath = null : _image = File(imgPath);
+    tags == null ? _tags = [] : _tags = tags;
+    ingredients == null ? _ingredients = {} : _ingredients = ingredients;
   }
 
   Recipe.id(
       {required id,
       required String title,
       required String description,
-      String? imgPath})
+      String? imgPath,
+      List<Tag>? tags,
+      Map<Ingredient, double>? ingredients})
       : _id = id,
         _recipeDescription = description,
         _title = title {
     imgPath == null ? imgPath = null : _image = File(imgPath);
+    tags == null ? _tags = [] : _tags = tags;
+    ingredients == null ? _ingredients = {} : _ingredients = ingredients;
   }
 
   File? get image => this._image;
@@ -48,8 +59,8 @@ class Recipe with ChangeNotifier {
     notifyListeners();
   }
 
-  String get recipeDescription => _recipeDescription;
-  set recipeDescription(String value) {
+  String get description => _recipeDescription;
+  set description(String value) {
     _recipeDescription = value;
     notifyListeners();
   }
@@ -84,7 +95,7 @@ class Recipe with ChangeNotifier {
     return {
       'id': id ?? -1,
       'name': title,
-      'description': recipeDescription,
+      'content': description,
       'ingredients': ingredientsString,
       'tags': tagsString,
     };
