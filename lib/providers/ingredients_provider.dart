@@ -6,6 +6,9 @@ class IngredientsProvider with ChangeNotifier {
   List<Ingredient> _ingredients = [];
 
   List<Ingredient> get ingredients {
+    if (isEmpty) {
+      fetchAndSetIngredients();
+    }
     return [..._ingredients];
   }
 

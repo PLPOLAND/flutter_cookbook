@@ -85,7 +85,7 @@ class Recipe with ChangeNotifier {
   Map<String, Object?> toMap() {
     String ingredientsString = '';
     for (var ingredient in ingredients.keys) {
-      ingredientsString += '${ingredient.id};';
+      ingredientsString += '${ingredient.id},${ingredients[ingredient]};';
     }
     String tagsString = '';
     for (var tag in tags) {

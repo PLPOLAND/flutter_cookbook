@@ -146,16 +146,18 @@ class DBHelper {
       String tmpTags = maps[i]
           ['tags']; //tags are stored as a string with the ids separated by ';'
       List<String> splitedTags = tmpTags.split(';'); // split them
-      splitedTags.forEach((element) {
+      splitedTags.removeWhere((element) => element == "");
+      for (var element in splitedTags) {
         // add the tag of given ID to the recipe
         recipe.addTag(tags.firstWhere((tag) => tag.id == int.parse(element)));
-      });
+      }
 
       //ingredients are stored as a string with the ids separated by ';' and the size separated by ','
       String tmpIngredientsWithSize = maps[i]['ingredients'];
       List<String> splitedIngredientsWithSize =
           tmpIngredientsWithSize.split(';'); // split ingredients
-      splitedIngredientsWithSize.forEach((element) {
+      splitedIngredientsWithSize.removeWhere((element) => element == "");
+      for (var element in splitedIngredientsWithSize) {
         List<String> ingredientWithSize =
             element.split(','); // split ingredient and size
         recipe.addIngredient(
@@ -164,7 +166,7 @@ class DBHelper {
           ),
           double.parse(ingredientWithSize[1]),
         );
-      });
+      }
       return recipe;
     });
   }

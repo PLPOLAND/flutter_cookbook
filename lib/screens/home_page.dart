@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cookbook/providers/recipes_provider.dart';
 import 'package:flutter_cookbook/widgets/main_drawer.dart';
 import 'package:provider/provider.dart';
 
@@ -12,21 +13,23 @@ class HomePageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('Hello World!'),
-      ),
       appBar: AppBar(
         title: const Text('Cookbook'),
       ),
       drawer: MainDrawer(),
-      floatingActionButton: Consumer<ThemesMenager>(
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.of(context).pushNamed('/add-recipe');
+        },
+        label: const Text('Add Recipe'),
+        icon: const Icon(Icons.add),
+      ),
+      body: Consumer<RecipesProvider>(
         builder: (context, value, child) {
-          return FloatingActionButton.extended(
-            onPressed: () {
-              Navigator.of(context).pushNamed('/add-recipe');
-            },
-            label: const Text('Add Recipe'),
-            icon: const Icon(Icons.add),
+          return Center(
+            child: Text(
+              'Recipes: ${value.recipes.length}',
+            ),
           );
         },
       ),
