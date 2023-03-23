@@ -4,7 +4,7 @@ import 'package:flutter_cookbook/providers/tags_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/main_drawer.dart';
-import 'add_ingredient_screen.dart';
+import 'add_edit_ingredient_screen.dart';
 
 class IngredientsListScreen extends StatelessWidget {
   static const routeName = '/ingredients-list';
@@ -20,7 +20,7 @@ class IngredientsListScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          Navigator.of(context).pushNamed(AddIngredientScreen.routeName);
+          Navigator.of(context).pushNamed(AddEditIngredientScreen.routeName);
         },
       ),
       body: Consumer<IngredientsProvider>(
@@ -42,7 +42,10 @@ class IngredientsListScreen extends StatelessWidget {
                     IconButton(
                       icon: const Icon(Icons.edit),
                       onPressed: () {
-                        //TODO edit ingredient
+                        Navigator.of(context).pushNamed(
+                          AddEditIngredientScreen.routeName,
+                          arguments: ingredientsProvider.ingredients[index].id,
+                        );
                       },
                     ),
                     IconButton(

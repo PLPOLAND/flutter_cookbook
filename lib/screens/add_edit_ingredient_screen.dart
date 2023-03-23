@@ -4,18 +4,52 @@ import 'package:provider/provider.dart';
 import '../models/ingredient.dart';
 import '../providers/ingredients_provider.dart';
 
-class AddIngredientScreen extends StatefulWidget {
+class AddEditIngredientScreen extends StatefulWidget {
   static const routeName = '/add-ingredient';
+  IngredientWeightType weightType = IngredientWeightType.grams;
+
+  AddEditIngredientScreen({super.key});
 
   @override
-  State<AddIngredientScreen> createState() => _AddIngredientScreenState();
+  State<AddEditIngredientScreen> createState() =>
+      _AddEditIngredientScreenState();
 }
 
-class _AddIngredientScreenState extends State<AddIngredientScreen> {
+class _AddEditIngredientScreenState extends State<AddEditIngredientScreen> {
+  Ingredient? ingredient;
   final controller = TextEditingController();
-  IngredientWeightType weightType = IngredientWeightType.grams;
+  late IngredientWeightType weightType;
+
+  @override
+  void initState() {
+    print("Init state");
+    weightType = widget.weightType;
+    super.initState();
+  }
+
+  void save() {
+    if (ingredient != null) {
+      print("Updating ingredient: ${ingredient!.name} -> ${controller.text}"
+          " and weight type: ${ingredient!.weightType} -> ${widget.weightType}");
+      ingredient!.name = controller.text;
+      ingredient!.weightType = widget.weightType;
+      Provider.of<IngredientsProvider>(context, listen: false)
+          .updateIngredient(ingredient!);
+    } else {
+      Provider.of<IngredientsProvider>(context, listen: false)
+          .addIngredient(Ingredient(controller.text, weightType));
+    }
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (ModalRoute.of(context)!.settings.arguments != null) {
+      ingredient = Provider.of<IngredientsProvider>(context, listen: true)
+          .getIngredientById(ModalRoute.of(context)!.settings.arguments as int);
+      controller.text = ingredient!.name;
+      weightType = ingredient!.weightType;
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Ingredient'),
@@ -44,7 +78,9 @@ class _AddIngredientScreenState extends State<AddIngredientScreen> {
                 value: weightType,
                 onChanged: (value) {
                   setState(() {
-                    weightType = value as IngredientWeightType;
+                    widget.weightType = value as IngredientWeightType;
+                    weightType = value;
+                    print("New weight type: $weightType");
                   });
                 },
               ),
@@ -60,18 +96,13 @@ class _AddIngredientScreenState extends State<AddIngredientScreen> {
                     label: const Text('Cancel'),
                   ),
                   FilledButton.icon(
-                    icon: const Icon(Icons.add),
-                    onPressed: () async {
-                      var addedIngredient =
-                          await Provider.of<IngredientsProvider>(context,
-                                  listen: false)
-                              .addIngredient(Ingredient(
-                                  controller.text.toLowerCase(), weightType));
-                      if (context.mounted) {
-                        Navigator.of(context).pop(addedIngredient);
-                      }
+                    icon: Icon(ingredient == null ? Icons.add : Icons.save),
+                    onPressed: () {
+                      save();
                     },
-                    label: const Text('Add new ingredient'),
+                    label: ingredient == null
+                        ? const Text('Add new ingredient')
+                        : const Text('Save changes'),
                   ),
                 ],
               ),

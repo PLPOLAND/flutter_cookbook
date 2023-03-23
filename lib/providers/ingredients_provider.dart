@@ -57,12 +57,15 @@ class IngredientsProvider with ChangeNotifier {
   }
 
   /// Find the index of the [ingredient] with the same [id] as the [ingredient] passed in, then replace the [ingredient]
-  void updateIngredient(Ingredient ingredient) {
+  Future<Ingredient> updateIngredient(Ingredient ingredient) {
+    print(
+        "updateIngredient: ${ingredient.id}, ${ingredient.name}, ${ingredient.weightType}");
     final index =
         _ingredients.indexWhere((element) => element.id == ingredient.id);
     _ingredients[index] = ingredient;
     DBHelper.updateIngredient(ingredient);
     notifyListeners();
+    return Future.value(ingredient);
   }
 
   Ingredient getIngredientById(int id) {
