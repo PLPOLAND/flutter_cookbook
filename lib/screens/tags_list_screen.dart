@@ -10,11 +10,17 @@ class TagsListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Tags'),
-      ),
-      drawer: MainDrawer(),
-      body: TagsList(),
-    );
+        appBar: AppBar(
+          title: Text('Tags'),
+        ),
+        drawer: MainDrawer(),
+        body: TagsList(),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            Navigator.of(context).pushNamed('/add-tag');
+          },
+          label: const Text('Add Tag'),
+          icon: const Icon(Icons.add),
+        ));
   }
 }
