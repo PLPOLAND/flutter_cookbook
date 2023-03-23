@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cookbook/models/recipe_search_delegate.dart';
 import 'package:flutter_cookbook/providers/recipes_provider.dart';
 import 'package:flutter_cookbook/screens/recipe_detail_screen.dart';
 import 'package:flutter_cookbook/widgets/main_drawer.dart';
@@ -16,6 +17,24 @@ class HomePageScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cookbook'),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              var recipe = await showSearch(
+                context: context,
+                delegate: RecipeSearchDelegate(
+                    Provider.of<RecipesProvider>(context, listen: false)
+                        .recipes,
+                    context),
+              );
+              if (recipe != null && context.mounted) {
+                Navigator.of(context).pushNamed(RecipeDetailScreen.routeName,
+                    arguments: recipe.id);
+              }
+            },
+            icon: const Icon(Icons.search),
+          ),
+        ],
       ),
       drawer: MainDrawer(),
       floatingActionButton: FloatingActionButton.extended(
