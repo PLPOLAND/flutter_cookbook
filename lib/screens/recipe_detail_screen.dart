@@ -15,9 +15,23 @@ import 'add_edit_recipe_screen.dart';
 class RecipeDetailScreen extends StatelessWidget {
   static const routeName = '/recipe-detail';
 
+  const RecipeDetailScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var selectedRecipeId = ModalRoute.of(context)!.settings.arguments as int;
+    if (Provider.of<RecipesProvider>(context)
+        .recipes
+        .where((element) => element.id == selectedRecipeId)
+        .isEmpty) {
+      Navigator.of(context).pop();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Recipe not found'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        ),
+      );
+    }
     var selectedRecipe = Provider.of<RecipesProvider>(context)
         .recipes
         .where((element) => element.id == selectedRecipeId)
@@ -78,7 +92,7 @@ class RecipeDetailScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-              const SectionTitle("Tags"),
+              const SectionTitle("Tags:"),
               Wrap(
                 spacing: 0,
                 children: [
@@ -87,11 +101,11 @@ class RecipeDetailScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              const SectionTitle('Składniki:'),
+              const SectionTitle('Ingredients:'),
               const SizedBox(height: 10),
               ...ingredientsList,
               const SizedBox(height: 10),
-              const SectionTitle("Przygotowanie:"),
+              const SectionTitle("Making:"),
               const SizedBox(height: 10),
               Text(
                 selectedRecipe.description,
@@ -109,6 +123,12 @@ class RecipeDetailScreen extends StatelessWidget {
         child: const Icon(Icons.favorite_outline),
         onPressed: () {
           //TODO: implement favorite
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text('Not implemented yet'),
+              backgroundColor: Theme.of(context).colorScheme.error,
+            ),
+          );
         },
       ),
     );
