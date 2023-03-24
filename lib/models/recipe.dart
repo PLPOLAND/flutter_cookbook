@@ -98,6 +98,7 @@ class Recipe with ChangeNotifier {
       'content': description,
       'ingredients': ingredientsString,
       'tags': tagsString,
+      'imagePath': image?.path
     };
   }
 

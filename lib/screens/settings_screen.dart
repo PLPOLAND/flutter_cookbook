@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cookbook/helpers/db_helper.dart';
+import 'package:flutter_cookbook/models/ingredient.dart';
+import 'package:flutter_cookbook/providers/recipes_provider.dart';
+import 'package:flutter_cookbook/providers/tags_provider.dart';
 import 'package:flutter_cookbook/themes/themes.dart';
 import 'package:flutter_cookbook/widgets/main_drawer.dart';
 import 'package:provider/provider.dart';
+
+import '../providers/ingredients_provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   static const routeName = '/settings';
@@ -29,8 +34,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const SizedBox(height: 10),
               //TODO delete this button on release
               ElevatedButton.icon(
-                  onPressed: () {
-                    DBHelper.deleteDatabase();
+                  onPressed: () async {
+                    await Provider.of<RecipesProvider>(context, listen: false)
+                        .clearRecipes();
+                    Provider.of<TagsProvider>(context, listen: false)
+                        .clearTags();
+                    Provider.of<IngredientsProvider>(context, listen: false)
+                        .clearIngredients();
+                    await DBHelper.deleteDatabase();
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(

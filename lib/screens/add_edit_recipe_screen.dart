@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cookbook/models/ingredient.dart';
 import 'package:flutter_cookbook/models/recipe.dart';
 import 'package:flutter_cookbook/widgets/tags_chooser.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart' as syspaths;
 
 import '../models/tag.dart';
 import '../providers/recipes_provider.dart';
@@ -25,6 +30,7 @@ class _AddEditRecipeScreenState extends State<AddEditRecipeScreen> {
   String description = "";
   List<Tag> tags = [];
   Map<Ingredient, double> ingredients = {};
+  File? img;
 
   void save() async {
     final isValid = _form.currentState!.validate();
@@ -38,6 +44,13 @@ class _AddEditRecipeScreenState extends State<AddEditRecipeScreen> {
         recipe!.description = description;
         recipe!.tags = tags;
         recipe!.ingredients = ingredients;
+
+        if (img != null) {
+          final appDir = await syspaths.getApplicationDocumentsDirectory();
+          final fileName = path.basename(img!.path);
+          final savedImage = await img!.copy('${appDir.path}/$fileName');
+          recipe!.image = savedImage;
+        }
         await Provider.of<RecipesProvider>(context, listen: false)
             .updateRecipe(recipe!);
         if (context.mounted) {
@@ -49,19 +62,26 @@ class _AddEditRecipeScreenState extends State<AddEditRecipeScreen> {
           );
         }
         return;
-      }
-      var newRecipe = Recipe(description: description, title: name);
-      newRecipe.tags = tags;
-      newRecipe.ingredients = ingredients;
-      await Provider.of<RecipesProvider>(context, listen: false)
-          .addRecipe(newRecipe);
-      if (context.mounted) {
-        Navigator.of(context).pop();
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Recipe added'),
-          ),
-        );
+      } else {
+        var newRecipe = Recipe(description: description, title: name);
+        if (img != null) {
+          final appDir = await syspaths.getApplicationDocumentsDirectory();
+          final fileName = path.basename(img!.path);
+          final savedImage = await img!.copy('${appDir.path}/$fileName');
+          newRecipe.image = savedImage;
+        }
+        newRecipe.tags = tags;
+        newRecipe.ingredients = ingredients;
+        await Provider.of<RecipesProvider>(context, listen: false)
+            .addRecipe(newRecipe);
+        if (context.mounted) {
+          Navigator.of(context).pop();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Recipe added'),
+            ),
+          );
+        }
       }
     }
   }
@@ -74,6 +94,7 @@ class _AddEditRecipeScreenState extends State<AddEditRecipeScreen> {
       description = recipe!.description;
       tags = recipe!.tags;
       ingredients = recipe!.ingredients;
+      img = recipe!.image;
     }
 
     return Scaffold(
@@ -89,6 +110,63 @@ class _AddEditRecipeScreenState extends State<AddEditRecipeScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        height: img == null ? 100 : 116,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color:
+                                    Theme.of(context).colorScheme.onSurface)),
+                        child: img == null
+                            ? const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: Text("No image selected"),
+                                ),
+                              )
+                            : Image.file(img!),
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton.icon(
+                            icon: const Icon(Icons.camera_alt),
+                            label: const Text('Take a picture'),
+                            onPressed: () async {
+                              final image = await ImagePicker().pickImage(
+                                  source: ImageSource.camera,
+                                  imageQuality: 50,
+                                  maxWidth: 600);
+                              if (image != null) {
+                                setState(() {
+                                  img = File(image.path);
+                                });
+                              }
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                          ElevatedButton.icon(
+                            icon: const Icon(Icons.image),
+                            label: const Text('From gallery'),
+                            onPressed: () async {
+                              final image = await ImagePicker().pickImage(
+                                  source: ImageSource.gallery,
+                                  imageQuality: 50);
+                              if (image != null) {
+                                setState(() {
+                                  img = File(image.path);
+                                });
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                   TextFormField(
                     initialValue: name,
                     decoration: const InputDecoration(labelText: 'Name:'),

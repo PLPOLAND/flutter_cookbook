@@ -77,7 +77,7 @@ class IngredientsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void clearIngredients() {
+  Future<void> clearIngredients() async {
     for (var ingredient in _ingredients) {
       DBHelper.deleteIngredient(ingredient);
     }

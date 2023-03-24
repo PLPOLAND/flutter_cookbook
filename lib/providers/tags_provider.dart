@@ -82,7 +82,7 @@ class TagsProvider with ChangeNotifier {
     return _tags.firstWhere((tag) => tag.id == id);
   }
 
-  void clearTags() {
+  Future<void> clearTags() async {
     for (var tag in _tags) {
       DBHelper.deleteTag(tag);
     }

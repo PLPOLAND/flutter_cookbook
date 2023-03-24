@@ -25,7 +25,7 @@ class DBHelper {
       onCreate: (db, version) async {
         print('Database created');
         await db.execute(
-            'CREATE TABLE ${DBTables.recipes} (id INTEGER PRIMARY KEY, name TEXT, content TEXT, ingredients TEXT, ingredients_size TEXT, tags TEXT)');
+            'CREATE TABLE ${DBTables.recipes} (id INTEGER PRIMARY KEY, name TEXT, content TEXT, ingredients TEXT, ingredients_size TEXT, tags TEXT, imagePath TEXT)');
         await db.execute(
             'CREATE TABLE ${DBTables.ingredients} (id INTEGER PRIMARY KEY, name TEXT, weightType INTEGER)');
         await db.execute(
@@ -141,6 +141,7 @@ class DBHelper {
         id: maps[i]['id'],
         description: maps[i]['content'],
         title: maps[i]['name'],
+        imgPath: maps[i]['imagePath'],
       );
 
       String tmpTags = maps[i]
@@ -199,5 +200,10 @@ class DBHelper {
     final dbPath = await sql.getDatabasesPath();
     sql.deleteDatabase(path.join(dbPath, 'cookBook.db'));
     print('Database deleted');
+  }
+
+  static Future<void> deleteAllRecipes() async {
+    final db = await DBHelper.database();
+    db.delete('${DBTables.recipes}');
   }
 }

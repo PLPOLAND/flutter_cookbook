@@ -42,7 +42,8 @@ class RecipesProvider with ChangeNotifier {
           title: recipe.title,
           description: recipe.description,
           tags: recipe.tags,
-          ingredients: recipe.ingredients);
+          ingredients: recipe.ingredients,
+          imgPath: recipe.image?.path);
       _recipes.add(newRecipe);
       notifyListeners();
       await DBHelper.insertRecipe(newRecipe);
@@ -72,6 +73,12 @@ class RecipesProvider with ChangeNotifier {
         await DBHelper.updateRecipe(_recipes[i]);
       }
     }
+    notifyListeners();
+  }
+
+  Future<void> clearRecipes() async {
+    _recipes = [];
+    await DBHelper.deleteAllRecipes();
     notifyListeners();
   }
 }
