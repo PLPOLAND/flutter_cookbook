@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cookbook/helpers/db_helper.dart';
 import 'package:flutter_cookbook/models/ingredient.dart';
@@ -33,24 +34,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ThemesMenager.getSettingsRow(context),
               const SizedBox(height: 10),
               //TODO delete this button on release
-              ElevatedButton.icon(
-                  onPressed: () async {
-                    await Provider.of<RecipesProvider>(context, listen: false)
-                        .clearRecipes();
-                    Provider.of<TagsProvider>(context, listen: false)
-                        .clearTags();
-                    Provider.of<IngredientsProvider>(context, listen: false)
-                        .clearIngredients();
-                    await DBHelper.deleteDatabase();
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        Theme.of(context).colorScheme.errorContainer),
-                    foregroundColor: MaterialStateProperty.all(
-                        Theme.of(context).colorScheme.onErrorContainer),
-                  ),
-                  icon: const Icon(Icons.delete_forever),
-                  label: const Text("Delete database"))
+              if (!kReleaseMode)
+                ElevatedButton.icon(
+                    onPressed: () async {
+                      await Provider.of<RecipesProvider>(context, listen: false)
+                          .clearRecipes();
+                      Provider.of<TagsProvider>(context, listen: false)
+                          .clearTags();
+                      Provider.of<IngredientsProvider>(context, listen: false)
+                          .clearIngredients();
+                      await DBHelper.deleteDatabase();
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context).colorScheme.errorContainer),
+                      foregroundColor: MaterialStateProperty.all(
+                          Theme.of(context).colorScheme.onErrorContainer),
+                    ),
+                    icon: const Icon(Icons.delete_forever),
+                    label: const Text("Delete database"))
             ],
           ),
         ),
