@@ -5,7 +5,7 @@ import 'package:flutter_cookbook/providers/recipes_provider.dart';
 import 'package:flutter_cookbook/providers/tags_provider.dart';
 import 'package:flutter_cookbook/screens/add_edit_ingredient_screen.dart';
 import 'package:flutter_cookbook/screens/add_edit_recipe_screen.dart';
-import 'package:flutter_cookbook/screens/add_tag_screen.dart';
+import 'package:flutter_cookbook/screens/add_edit_tag_screen.dart';
 import 'package:flutter_cookbook/screens/home_page.dart';
 import 'package:flutter_cookbook/screens/ingredients_list_screen.dart';
 import 'package:flutter_cookbook/screens/recipe_detail_screen.dart';
@@ -56,7 +56,7 @@ class MainApp extends StatelessWidget {
                 RecipeDetailScreen.routeName: (context) => RecipeDetailScreen(),
                 AddEditRecipeScreen.routeName: (context) =>
                     AddEditRecipeScreen(),
-                AddTagScreen.routeName: (context) => AddTagScreen(),
+                AddEditTagScreen.routeName: (context) => AddEditTagScreen(),
                 AddEditIngredientScreen.routeName: (context) =>
                     AddEditIngredientScreen(),
                 TagsListScreen.routeName: (context) => const TagsListScreen(),

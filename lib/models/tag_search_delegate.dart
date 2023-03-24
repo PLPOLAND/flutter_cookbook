@@ -5,7 +5,7 @@ import 'package:flutter_cookbook/models/ingredient.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/ingredients_provider.dart';
-import '../screens/add_tag_screen.dart';
+import '../screens/add_edit_tag_screen.dart';
 import 'tag.dart';
 
 class TagSearchDelegate extends SearchDelegate<Tag?> {
@@ -15,7 +15,7 @@ class TagSearchDelegate extends SearchDelegate<Tag?> {
   TagSearchDelegate(this.listExample, this.context);
 
   void addIngredient() {
-    Navigator.of(context).pushNamed(AddTagScreen.routeName).then((value) {
+    Navigator.of(context).pushNamed(AddEditTagScreen.routeName).then((value) {
       if (value != null) {
         listExample.add(value as Tag);
       }

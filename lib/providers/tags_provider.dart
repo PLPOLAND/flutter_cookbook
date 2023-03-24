@@ -70,14 +70,15 @@ class TagsProvider with ChangeNotifier {
   }
 
   /// Find the index of the [tag] with the same [id] as the [tag] passed in, then replace the [tag]
-  void updateTag(Tag tag) {
+  Future<Tag> updateTag(Tag tag) async {
     final index = _tags.indexWhere((element) => element.id == tag.id);
     _tags[index] = tag;
     DBHelper.updateTag(tag);
     notifyListeners();
+    return tag;
   }
 
-  Tag getTagById(int id) {
+  Tag getTagByID(int id) {
     return _tags.firstWhere((tag) => tag.id == id);
   }
 

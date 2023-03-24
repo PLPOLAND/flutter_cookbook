@@ -63,4 +63,15 @@ class RecipesProvider with ChangeNotifier {
     await DBHelper.updateRecipe(recipe);
     return recipe;
   }
+
+  /// Remove the [tag] from all recipes that contain it, then update the database
+  Future<void> removeTagFromRecipes(Tag tag) async {
+    for (int i = 0; i < _recipes.length; i++) {
+      if (_recipes[i].tags.contains(tag)) {
+        _recipes[i].tags.remove(tag);
+        await DBHelper.updateRecipe(_recipes[i]);
+      }
+    }
+    notifyListeners();
+  }
 }
