@@ -86,9 +86,12 @@ class RecipeDetailScreen extends StatelessWidget {
                       margin: const EdgeInsets.only(bottom: 10),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: Image.file(
-                          selectedRecipe.image!,
-                          fit: BoxFit.cover,
+                        child: Hero(
+                          tag: selectedRecipe.id!,
+                          child: Image.file(
+                            selectedRecipe.image!,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),

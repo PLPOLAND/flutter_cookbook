@@ -68,7 +68,12 @@ class RecipeListScreen extends StatelessWidget {
                           Icon(Icons.image),
                         ],
                       )
-                    : Image.file(recipes[index].image!),
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Hero(
+                            tag: recipes[index].id!,
+                            child: Image.file(recipes[index].image!)),
+                      ),
                 onTap: () {
                   Navigator.of(context).pushNamed(RecipeDetailScreen.routeName,
                       arguments: recipes[index].id);
