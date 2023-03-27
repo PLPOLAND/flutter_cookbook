@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cookbook/screens/ingredients_list_screen.dart';
+import 'package:flutter_cookbook/screens/recipe_list_screen.dart';
 import 'package:flutter_cookbook/screens/tags_list_screen.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -32,8 +33,14 @@ class MainDrawer extends StatelessWidget {
         children: [
           ListTile(
             leading: const Icon(Icons.home),
-            title: const Text('Homepage'),
+            title: const Text('Home'),
             onTap: () => Navigator.of(context).pushReplacementNamed('/'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.restaurant),
+            title: const Text('Recipes'),
+            onTap: () => Navigator.of(context)
+                .pushReplacementNamed(RecipeListScreen.routeName),
           ),
           ListTile(
             leading: const Icon(Icons.egg),

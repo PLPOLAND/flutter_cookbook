@@ -9,6 +9,7 @@ import 'package:flutter_cookbook/screens/add_edit_tag_screen.dart';
 import 'package:flutter_cookbook/screens/home_page.dart';
 import 'package:flutter_cookbook/screens/ingredients_list_screen.dart';
 import 'package:flutter_cookbook/screens/recipe_detail_screen.dart';
+import 'package:flutter_cookbook/screens/recipe_list_screen.dart';
 import 'package:flutter_cookbook/screens/settings_screen.dart';
 import 'package:flutter_cookbook/screens/tags_list_screen.dart';
 import 'package:flutter_cookbook/themes/themes.dart';
@@ -53,6 +54,8 @@ class MainApp extends StatelessWidget {
               // home: RecipeDetailScreen(),
               routes: {
                 HomePageScreen.routeName: (context) => const HomePageScreen(),
+                RecipeListScreen.routeName: (context) =>
+                    const RecipeListScreen(),
                 RecipeDetailScreen.routeName: (context) => RecipeDetailScreen(),
                 AddEditRecipeScreen.routeName: (context) =>
                     AddEditRecipeScreen(),
