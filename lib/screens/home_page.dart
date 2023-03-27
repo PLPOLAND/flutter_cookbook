@@ -64,44 +64,62 @@ class HomePageScreen extends StatelessWidget {
                   }
                   tags = tags.substring(0, tags.length - 2);
                   return Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: recipes[index].image == null
-                                ? const Icon(Icons.image)
-                                : ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.file(
-                                      recipes[index].image!,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
+                    child: Hero(
+                      tag: recipes[index].id!,
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(8.0),
+                          splashColor: Theme.of(context).colorScheme.primary,
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                              RecipeDetailScreen.routeName,
+                              arguments: recipes[index].id,
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: recipes[index].image == null
+                                      ? const Icon(Icons.image)
+                                      : ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          child: Image.file(
+                                            recipes[index].image!,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                ),
+                                const SizedBox(height: 5.0),
+                                Text(
+                                  recipes[index].title,
+                                  overflow: TextOverflow.fade,
+                                  maxLines: 1,
+                                  softWrap: false,
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                                Text(
+                                  tags,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                                // TextButton(
+                                //   onPressed: () {
+                                //     Navigator.of(context).pushNamed(
+                                //       RecipeDetailScreen.routeName,
+                                //       arguments: recipes[index].id,
+                                //     );
+                                //   },
+                                //   child: const Text('View Recipe'),
+                                // ),
+                              ],
+                            ),
                           ),
-                          Text(
-                            recipes[index].title,
-                            overflow: TextOverflow.fade,
-                            maxLines: 1,
-                            softWrap: false,
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          Text(
-                            tags,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          // TextButton(
-                          //   onPressed: () {
-                          //     Navigator.of(context).pushNamed(
-                          //       RecipeDetailScreen.routeName,
-                          //       arguments: recipes[index].id,
-                          //     );
-                          //   },
-                          //   child: const Text('View Recipe'),
-                          // ),
-                        ],
+                        ),
                       ),
                     ),
                   );
