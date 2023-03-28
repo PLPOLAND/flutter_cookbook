@@ -1,6 +1,9 @@
 /// `Tag` is a class that represents a tag
 class Tag extends Comparable<Tag> {
+  /// The [id] of the tag or null if it is not in the database
   int? _id;
+
+  /// The [name] of the tag
   String _name;
 
   /// The [id] of the tag
@@ -10,11 +13,15 @@ class Tag extends Comparable<Tag> {
   String get name => this._name;
   set name(String value) => this._name = value;
 
+  /// Creates a new tag with the [name], the [id] is set to null
   Tag(String name) : _name = name;
+
+  /// Creates a new tag with the [id] and [name]
   Tag.id({required int id, required String name})
       : _id = id,
         _name = name;
 
+  /// Creates a Map from the tag fields
   Map<String, Object?> toMap() {
     return {
       'id': id ?? -1,
@@ -36,9 +43,11 @@ class Tag extends Comparable<Tag> {
 
   @override
   int compareTo(Tag other) {
-    return this.name.compareTo(other.name);
+    return name.compareTo(other.name);
   }
 
   @override
-  int get hashCode => super.hashCode;
+  int get hashCode {
+    return super.hashCode;
+  }
 }

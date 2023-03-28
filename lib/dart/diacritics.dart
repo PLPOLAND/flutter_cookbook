@@ -1,3 +1,4 @@
+/// A class for removing diacritics from strings.
 class Diacritics {
   static final _map = <String, String>{};
 

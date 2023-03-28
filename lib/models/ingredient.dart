@@ -2,9 +2,15 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_cookbook/helpers/db_helper.dart';
 
+/// An ingredient that can be used in a recipe.
 class Ingredient extends Equatable with ChangeNotifier {
+  /// The id of the ingredient.
   int? _id;
+
+  /// The name of the ingredient.
   String _name;
+
+  /// The type of weight of the ingredient.
   IngredientWeightType _weightType;
 
   IngredientWeightType get weightType => _weightType;
@@ -14,19 +20,25 @@ class Ingredient extends Equatable with ChangeNotifier {
     DBHelper.updateIngredient(this);
   }
 
-  int? get id => this._id;
-  // set id(int? value) => _id = value;
+  /// The id of the ingredient.
+  int? get id => _id;
 
+  /// The name of the ingredient.
   String get name => _name;
+
+  /// Sets the name of the ingredient and updates the database.
   set name(String value) {
     _name = value;
     notifyListeners();
     DBHelper.updateIngredient(this);
   }
 
+  /// Creates a new ingredient. The id is set to null.
   Ingredient(String name, IngredientWeightType ingredientWeightType)
       : _name = name,
         _weightType = ingredientWeightType;
+
+  /// Creates a new ingredient with the id.
   Ingredient.id(
       {required int id,
       required String name,
@@ -35,6 +47,7 @@ class Ingredient extends Equatable with ChangeNotifier {
         _name = name,
         _weightType = weightType;
 
+  /// Creates a Map from the ingredients fields.
   Map<String, Object?> toMap() {
     return {
       'id': id ?? -1,
@@ -63,48 +76,50 @@ enum IngredientWeightType {
   bottles, //butelki,
   mililiters; //mililitry,
 
+  /// Returns a string representation of the enum.
   @override
   String toString() {
     switch (this) {
       case IngredientWeightType.grams:
-        return 'gramy';
+        return 'grams';
       case IngredientWeightType.cups:
-        return 'szklanki';
+        return 'cups';
       case IngredientWeightType.tablespoons:
-        return 'łyżki stołowe';
+        return 'tablespoons';
       case IngredientWeightType.teaspoons:
-        return 'łyżeczki';
+        return 'teaspoons';
       case IngredientWeightType.pieces:
-        return 'sztuki';
+        return 'pieces';
       case IngredientWeightType.slices:
-        return 'plasterki';
+        return 'slices';
       case IngredientWeightType.cans:
-        return 'puszki';
+        return 'cans';
       case IngredientWeightType.bottles:
-        return 'butelki';
+        return 'bottles';
       case IngredientWeightType.mililiters:
-        return 'mililitry';
+        return 'mililiters';
     }
   }
 
+  /// Returns a short string representation of the enum.
   String toShortString() {
     switch (this) {
       case IngredientWeightType.grams:
         return 'g';
       case IngredientWeightType.cups:
-        return 'szkl.';
+        return 'cups';
       case IngredientWeightType.tablespoons:
-        return 'łyżki';
+        return 'tbsp';
       case IngredientWeightType.teaspoons:
-        return 'łyżeczki';
+        return 'tsp';
       case IngredientWeightType.pieces:
-        return 'szt.';
+        return 'pcs';
       case IngredientWeightType.slices:
-        return 'plasterki';
+        return 'slices';
       case IngredientWeightType.cans:
-        return 'pusz.';
+        return 'cans';
       case IngredientWeightType.bottles:
-        return 'but.';
+        return 'bottle';
       case IngredientWeightType.mililiters:
         return 'ml';
     }

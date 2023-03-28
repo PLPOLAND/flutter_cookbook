@@ -1,5 +1,6 @@
 import 'diacritics.dart';
 
+/// Compare two strings, ignoring diacritics.
 int compareStrings(String a, String b) {
   a = a.withoutDiacritics;
   b = b.withoutDiacritics;

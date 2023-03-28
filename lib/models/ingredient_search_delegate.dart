@@ -6,12 +6,17 @@ import 'package:provider/provider.dart';
 
 import '../providers/ingredients_provider.dart';
 
+/// A [SearchDelegate] that searches through a list of [Ingredient]s.
 class IngredientSearchDelegate extends SearchDelegate<Ingredient?> {
+  /// The list of [Ingredient]s to search through.
   final List<Ingredient> listExample;
+
+  /// The [BuildContext] of the [MaterialApp].
   BuildContext context;
 
   IngredientSearchDelegate(this.listExample, this.context);
 
+  /// Opens the [AddIngredientScreen] and adds the ingredient to the list.
   void addIngredient() {
     Navigator.of(context).pushNamed('/add-ingredient').then((value) {
       if (value != null) {
@@ -20,6 +25,7 @@ class IngredientSearchDelegate extends SearchDelegate<Ingredient?> {
     });
   }
 
+  /// Builds the actions for the [AppBar].
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -38,6 +44,7 @@ class IngredientSearchDelegate extends SearchDelegate<Ingredient?> {
     ];
   }
 
+  /// Builds the leading widget for the [AppBar].
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
@@ -51,12 +58,14 @@ class IngredientSearchDelegate extends SearchDelegate<Ingredient?> {
     );
   }
 
+  /// Closes the [SearchDelegate] and returns the selected [Ingredient].
   @override
   Widget buildResults(BuildContext context) {
     close(context, listExample.where((element) => element.name == query).first);
     return Container();
   }
 
+  /// Builds the list of suggestions.
   @override
   Widget buildSuggestions(BuildContext context) {
     List<String> suggestionList = query.isEmpty

@@ -8,12 +8,14 @@ import '../providers/ingredients_provider.dart';
 import '../screens/add_edit_tag_screen.dart';
 import 'tag.dart';
 
+/// A [SearchDelegate] that searches through a list of [Ingredient]s.
 class TagSearchDelegate extends SearchDelegate<Tag?> {
   final List<Tag> listExample;
   BuildContext context;
 
   TagSearchDelegate(this.listExample, this.context);
 
+  /// Opens the [AddIngredientScreen] and adds the ingredient to the list.
   void addIngredient() {
     Navigator.of(context).pushNamed(AddEditTagScreen.routeName).then((value) {
       if (value != null) {
@@ -22,6 +24,7 @@ class TagSearchDelegate extends SearchDelegate<Tag?> {
     });
   }
 
+  /// Builds the actions for the [AppBar].
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -40,6 +43,7 @@ class TagSearchDelegate extends SearchDelegate<Tag?> {
     ];
   }
 
+  /// Builds the leading widget for the [AppBar].
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
@@ -53,12 +57,14 @@ class TagSearchDelegate extends SearchDelegate<Tag?> {
     );
   }
 
+  /// Close the search and return the selected [Ingredient].
   @override
   Widget buildResults(BuildContext context) {
     close(context, listExample.where((element) => element.name == query).first);
     return Container();
   }
 
+  /// Builds the list of suggestions.
   @override
   Widget buildSuggestions(BuildContext context) {
     List<String> suggestionList = query.isEmpty
