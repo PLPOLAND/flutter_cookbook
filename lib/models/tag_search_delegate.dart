@@ -60,8 +60,20 @@ class TagSearchDelegate extends SearchDelegate<Tag?> {
   /// Close the search and return the selected [Ingredient].
   @override
   Widget buildResults(BuildContext context) {
-    close(context, listExample.where((element) => element.name == query).first);
-    return Container();
+    if (query.isEmpty) {
+      return const Center(
+        child: Text("Type something to search"),
+      );
+    }
+    var results = listExample.where((element) => element.name == query);
+    if (results.isNotEmpty) {
+      close(context, results.first);
+      return Container();
+    } else {
+      return const Center(
+        child: Text("No results found"),
+      );
+    }
   }
 
   /// Builds the list of suggestions.

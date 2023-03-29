@@ -59,9 +59,25 @@ class RecipeSearchDelegate extends SearchDelegate<Recipe?> {
   /// Close the search and return the selected [Ingredient].
   @override
   Widget buildResults(BuildContext context) {
-    close(
-        context, listExample.where((element) => element.title == query).first);
-    return Container();
+    if (query.isEmpty) {
+      return const Center(
+        child: Text(
+          'Type something to search',
+        ),
+      );
+    }
+
+    var results = listExample.where((element) => element.title == query);
+    if (results.isEmpty) {
+      return const Center(
+        child: Text(
+          'No results found',
+        ),
+      );
+    } else {
+      close(context, results.first);
+      return Container();
+    }
   }
 
   /// Builds the list of suggestions.
