@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_cookbook/models/ingredient.dart';
+import 'package:flutter_cookbook/screens/add_edit_ingredient_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/ingredients_provider.dart';
@@ -18,9 +19,12 @@ class IngredientSearchDelegate extends SearchDelegate<Ingredient?> {
 
   /// Opens the [AddIngredientScreen] and adds the ingredient to the list.
   void addIngredient() {
-    Navigator.of(context).pushNamed('/add-ingredient').then((value) {
+    Navigator.of(context)
+        .pushNamed(AddEditIngredientScreen.routeName)
+        .then((value) {
       if (value != null) {
         listExample.add(value as Ingredient);
+        listExample.sort((a, b) => a.name.compareTo(b.name));
       }
     });
   }

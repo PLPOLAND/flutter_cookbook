@@ -20,18 +20,18 @@ class RecipeDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var selectedRecipeId = ModalRoute.of(context)!.settings.arguments as int;
-    if (Provider.of<RecipesProvider>(context)
-        .recipes
-        .where((element) => element.id == selectedRecipeId)
-        .isEmpty) {
-      Navigator.of(context).pop();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Recipe not found'),
-          backgroundColor: Theme.of(context).colorScheme.error,
-        ),
-      );
-    }
+    // if (Provider.of<RecipesProvider>(context)
+    //     .recipes
+    //     .where((element) => element.id == selectedRecipeId)
+    //     .isEmpty) {
+    //   Navigator.of(context).pop();
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(
+    //       content: const Text('Recipe not found'),
+    //       backgroundColor: Theme.of(context).colorScheme.error,
+    //     ),
+    //   );
+    // }
     var selectedRecipe = Provider.of<RecipesProvider>(context)
         .recipes
         .where((element) => element.id == selectedRecipeId)
@@ -122,18 +122,19 @@ class RecipeDetailScreen extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.favorite_outline),
-        onPressed: () {
-          //TODO: implement favorite
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: const Text('Not implemented yet'),
-              backgroundColor: Theme.of(context).colorScheme.error,
-            ),
-          );
-        },
-      ),
+      //TODO uncomment when favorite is implemented
+      // floatingActionButton: FloatingActionButton(
+      //   child: const Icon(Icons.favorite_outline),
+      //   onPressed: () {
+      //     //TODO: implement favorite
+      //     ScaffoldMessenger.of(context).showSnackBar(
+      //       SnackBar(
+      //         content: const Text('Not implemented yet'),
+      //         backgroundColor: Theme.of(context).colorScheme.error,
+      //       ),
+      //     );
+      //   },
+      // ),
     );
   }
 }

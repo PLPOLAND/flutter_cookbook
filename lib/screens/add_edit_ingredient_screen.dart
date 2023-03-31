@@ -27,7 +27,7 @@ class _AddEditIngredientScreenState extends State<AddEditIngredientScreen> {
     super.initState();
   }
 
-  void save() {
+  void save() async {
     if (ingredient != null) {
       print("Updating ingredient: ${ingredient!.name} -> ${controller.text}"
           " and weight type: ${ingredient!.weightType} -> ${widget.weightType}");
@@ -35,11 +35,15 @@ class _AddEditIngredientScreenState extends State<AddEditIngredientScreen> {
       ingredient!.weightType = widget.weightType;
       Provider.of<IngredientsProvider>(context, listen: false)
           .updateIngredient(ingredient!);
+      Navigator.of(context).pop();
     } else {
-      Provider.of<IngredientsProvider>(context, listen: false)
-          .addIngredient(Ingredient(controller.text, weightType));
+      ingredient =
+          await Provider.of<IngredientsProvider>(context, listen: false)
+              .addIngredient(Ingredient(controller.text, weightType));
+      if (context.mounted) {
+        Navigator.of(context).pop(ingredient);
+      }
     }
-    Navigator.of(context).pop();
   }
 
   @override
