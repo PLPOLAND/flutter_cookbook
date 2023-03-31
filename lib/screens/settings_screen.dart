@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cookbook/helpers/db_helper.dart';
-import 'package:flutter_cookbook/models/ingredient.dart';
-import 'package:flutter_cookbook/providers/recipes_provider.dart';
-import 'package:flutter_cookbook/providers/tags_provider.dart';
-import 'package:flutter_cookbook/themes/themes.dart';
-import 'package:flutter_cookbook/widgets/main_drawer.dart';
+import 'package:cookbook/helpers/db_helper.dart';
+import 'package:cookbook/models/ingredient.dart';
+import 'package:cookbook/providers/recipes_provider.dart';
+import 'package:cookbook/providers/tags_provider.dart';
+import 'package:cookbook/themes/themes.dart';
+import 'package:cookbook/widgets/main_drawer.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/ingredients_provider.dart';

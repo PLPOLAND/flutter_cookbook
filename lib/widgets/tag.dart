@@ -1,7 +1,7 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cookbook/models/tag.dart';
-import 'package:flutter_cookbook/providers/tags_provider.dart';
+import 'package:cookbook/models/tag.dart';
+import 'package:cookbook/providers/tags_provider.dart';
 import 'package:provider/provider.dart';
 
 class TagWidget extends StatelessWidget {

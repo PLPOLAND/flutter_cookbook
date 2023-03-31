@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cookbook/screens/ingredients_list_screen.dart';
-import 'package:flutter_cookbook/screens/recipe_list_screen.dart';
-import 'package:flutter_cookbook/screens/tags_list_screen.dart';
+import 'package:cookbook/screens/ingredients_list_screen.dart';
+import 'package:cookbook/screens/recipe_list_screen.dart';
+import 'package:cookbook/screens/tags_list_screen.dart';
 
 class MainDrawer extends StatelessWidget {
   Widget buildListTile(String title, IconData icon, Function tapHandler) {

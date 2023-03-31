@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cookbook/providers/ingredients_provider.dart';
-import 'package:flutter_cookbook/providers/tags_provider.dart';
+import 'package:cookbook/providers/ingredients_provider.dart';
+import 'package:cookbook/providers/tags_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/main_drawer.dart';

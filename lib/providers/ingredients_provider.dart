@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cookbook/helpers/db_helper.dart';
+import 'package:cookbook/helpers/db_helper.dart';
 import '../models/ingredient.dart';
 
 class IngredientsProvider with ChangeNotifier {

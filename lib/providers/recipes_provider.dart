@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_cookbook/helpers/db_helper.dart';
-import 'package:flutter_cookbook/models/ingredient.dart';
+import 'package:cookbook/helpers/db_helper.dart';
+import 'package:cookbook/models/ingredient.dart';
 
 import '../models/recipe.dart';
 import '../models/tag.dart';

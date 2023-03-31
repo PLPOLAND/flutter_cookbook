@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cookbook/widgets/main_drawer.dart';
+import 'package:cookbook/widgets/main_drawer.dart';
 import '../widgets/tags_list.dart';
 
 class TagsListScreen extends StatelessWidget {

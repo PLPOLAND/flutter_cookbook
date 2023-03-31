@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cookbook/dart/diacritics.dart';
-import 'package:flutter_cookbook/providers/tags_provider.dart';
-import 'package:flutter_cookbook/screens/add_edit_tag_screen.dart';
+import 'package:cookbook/dart/diacritics.dart';
+import 'package:cookbook/providers/tags_provider.dart';
+import 'package:cookbook/screens/add_edit_tag_screen.dart';
 import 'package:provider/provider.dart';
 import "package:collection/collection.dart";
 

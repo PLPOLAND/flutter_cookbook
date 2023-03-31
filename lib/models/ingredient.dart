@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_cookbook/helpers/db_helper.dart';
+import 'package:cookbook/helpers/db_helper.dart';
 
 /// An ingredient that can be used in a recipe.
 class Ingredient extends Equatable with ChangeNotifier {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cookbook/models/ingredient_search_delegate.dart';
-import 'package:flutter_cookbook/providers/ingredients_provider.dart';
+import 'package:cookbook/models/ingredient_search_delegate.dart';
+import 'package:cookbook/providers/ingredients_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../models/ingredient.dart';

@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cookbook/models/ingredient.dart';
-import 'package:flutter_cookbook/models/recipe.dart';
-import 'package:flutter_cookbook/widgets/tags_chooser.dart';
+import 'package:cookbook/models/ingredient.dart';
+import 'package:cookbook/models/recipe.dart';
+import 'package:cookbook/widgets/tags_chooser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:path/path.dart' as path;

@@ -1,12 +1,12 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cookbook/models/ingredient.dart';
-import 'package:flutter_cookbook/models/recipe.dart';
-import 'package:flutter_cookbook/models/tag.dart';
-import 'package:flutter_cookbook/widgets/recipe_detail_screen/ingredient.dart';
-import 'package:flutter_cookbook/widgets/main_drawer.dart';
-import 'package:flutter_cookbook/widgets/recipe_detail_screen/section_title.dart';
-import 'package:flutter_cookbook/widgets/tag.dart';
+import 'package:cookbook/models/ingredient.dart';
+import 'package:cookbook/models/recipe.dart';
+import 'package:cookbook/models/tag.dart';
+import 'package:cookbook/widgets/recipe_detail_screen/ingredient.dart';
+import 'package:cookbook/widgets/main_drawer.dart';
+import 'package:cookbook/widgets/recipe_detail_screen/section_title.dart';
+import 'package:cookbook/widgets/tag.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/recipes_provider.dart';

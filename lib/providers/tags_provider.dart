@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cookbook/dart/exceptions/info_exception.dart';
-import 'package:flutter_cookbook/helpers/db_helper.dart';
+import 'package:cookbook/dart/exceptions/info_exception.dart';
+import 'package:cookbook/helpers/db_helper.dart';
 import '../models/tag.dart';
 
 class TagsProvider with ChangeNotifier {

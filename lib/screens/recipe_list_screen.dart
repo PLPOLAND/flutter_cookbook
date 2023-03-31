@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cookbook/models/recipe_search_delegate.dart';
-import 'package:flutter_cookbook/providers/recipes_provider.dart';
-import 'package:flutter_cookbook/screens/recipe_detail_screen.dart';
-import 'package:flutter_cookbook/widgets/main_drawer.dart';
+import 'package:cookbook/models/recipe_search_delegate.dart';
+import 'package:cookbook/providers/recipes_provider.dart';
+import 'package:cookbook/screens/recipe_detail_screen.dart';
+import 'package:cookbook/widgets/main_drawer.dart';
 import 'package:provider/provider.dart';
 
 import '../themes/themes.dart';

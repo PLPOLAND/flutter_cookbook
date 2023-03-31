@@ -1,4 +1,5 @@
 {
     "docwriter.style": "Auto-detect",
-    "docwriter.language": "English"
+    "docwriter.language": "English",
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

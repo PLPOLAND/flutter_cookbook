@@ -1,18 +1,18 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cookbook/providers/ingredients_provider.dart';
-import 'package:flutter_cookbook/providers/recipes_provider.dart';
-import 'package:flutter_cookbook/providers/tags_provider.dart';
-import 'package:flutter_cookbook/screens/add_edit_ingredient_screen.dart';
-import 'package:flutter_cookbook/screens/add_edit_recipe_screen.dart';
-import 'package:flutter_cookbook/screens/add_edit_tag_screen.dart';
-import 'package:flutter_cookbook/screens/home_page.dart';
-import 'package:flutter_cookbook/screens/ingredients_list_screen.dart';
-import 'package:flutter_cookbook/screens/recipe_detail_screen.dart';
-import 'package:flutter_cookbook/screens/recipe_list_screen.dart';
-import 'package:flutter_cookbook/screens/settings_screen.dart';
-import 'package:flutter_cookbook/screens/tags_list_screen.dart';
-import 'package:flutter_cookbook/themes/themes.dart';
+import 'package:cookbook/providers/ingredients_provider.dart';
+import 'package:cookbook/providers/recipes_provider.dart';
+import 'package:cookbook/providers/tags_provider.dart';
+import 'package:cookbook/screens/add_edit_ingredient_screen.dart';
+import 'package:cookbook/screens/add_edit_recipe_screen.dart';
+import 'package:cookbook/screens/add_edit_tag_screen.dart';
+import 'package:cookbook/screens/home_page.dart';
+import 'package:cookbook/screens/ingredients_list_screen.dart';
+import 'package:cookbook/screens/recipe_detail_screen.dart';
+import 'package:cookbook/screens/recipe_list_screen.dart';
+import 'package:cookbook/screens/settings_screen.dart';
+import 'package:cookbook/screens/tags_list_screen.dart';
+import 'package:cookbook/themes/themes.dart';
 import 'package:provider/provider.dart';
 
 void main() {

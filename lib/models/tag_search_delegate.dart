@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_cookbook/models/ingredient.dart';
+import 'package:cookbook/models/ingredient.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/ingredients_provider.dart';

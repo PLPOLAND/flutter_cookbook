@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_cookbook/helpers/db_helper.dart';
-import 'package:flutter_cookbook/models/ingredient.dart';
-import 'package:flutter_cookbook/models/tag.dart';
+import 'package:cookbook/helpers/db_helper.dart';
+import 'package:cookbook/models/ingredient.dart';
+import 'package:cookbook/models/tag.dart';
 
 class Recipe with ChangeNotifier {
   /// The id of the recipe. Can be null.

@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_cookbook/models/ingredient.dart';
-import 'package:flutter_cookbook/screens/add_edit_ingredient_screen.dart';
+import 'package:cookbook/models/ingredient.dart';
+import 'package:cookbook/screens/add_edit_ingredient_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/ingredients_provider.dart';
