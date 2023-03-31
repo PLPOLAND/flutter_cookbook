@@ -44,7 +44,7 @@ class ThemesMenager with ChangeNotifier {
           'dynamic_light': light,
           'dynamic_dark': dark,
         });
-        setTheme("dynamic");
+        setTheme("dynamic", notify: false);
         setThemeMode(ThemeMode.system);
       }
     } else {
@@ -52,13 +52,15 @@ class ThemesMenager with ChangeNotifier {
     }
   }
 
-  void setTheme(String theme) async {
+  void setTheme(String theme, {bool notify = true}) async {
     print("trying to set the theme to $theme");
     if (ThemesMenager.colorShemes.containsKey("${theme}_light")) {
       _theme = theme;
 
       print("setting theme to $theme");
-      notifyListeners();
+      if (notify) {
+        notifyListeners();
+      }
       var prefs = await SharedPreferences.getInstance();
       prefs.setString("theme", theme);
     }

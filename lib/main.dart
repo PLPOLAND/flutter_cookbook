@@ -46,8 +46,8 @@ class MainApp extends StatelessWidget {
             return MaterialApp(
               title: 'Cookbook',
               theme: ThemeData(
-                colorScheme:
-                    Provider.of<ThemesMenager>(context).getColorScheme(),
+                colorScheme: Provider.of<ThemesMenager>(context)
+                    .getColorScheme(systemAutoBrightness: true),
                 // ThemesMenager.getColorScheme(systemAutoBrightness: true),
                 useMaterial3: true,
               ),
