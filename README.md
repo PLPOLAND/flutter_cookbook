@@ -1,3 +1,3 @@
-# flutter_cookbook
+# Cookbook Flutter app
 
-A Flutter cookbook app. For storing personal recipes.
+App for storing personal recipes.
